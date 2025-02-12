@@ -1,21 +1,22 @@
-/* 🔹 General Page Styling */
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; 
-    color: #333;
+    background-color: #f4f4f4;
 }
 
-/* 🔹 Navigation Bar */
+/* Navigation Bar */
 header {
     background-color: #007bff;
-    padding: 15px;
+    color: white;
+    padding: 15px 0;
     text-align: center;
 }
 
-header .logo img {
+.logo img {
     width: 150px;
+    height: auto;
 }
 
 nav ul {
@@ -29,69 +30,47 @@ nav ul li {
 }
 
 nav ul li a {
-    text-decoration: none;
     color: white;
-    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
 }
 
-/* 🔹 Student Enquiry Section */
-.student-enquiry {
-    max-width: 800px;
-    margin: 50px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+/* About Section */
+.about {
     text-align: center;
+    padding: 50px;
+    background-color: white;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.student-enquiry h1 {
+.about h1 {
+    font-size: 36px;
     color: #007bff;
 }
 
-.student-enquiry h2 {
+.about p {
+    font-size: 18px;
     color: #333;
-    margin-top: 20px;
+    line-height: 1.6;
 }
 
-.student-enquiry ul {
-    text-align: left;
-    padding: 10px 20px;
-}
-
-.student-enquiry ul li {
-    margin: 10px 0;
-}
-
-.enquiry-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    margin-top: 20px;
+/* Footer */
+footer {
     background-color: #007bff;
     color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.enquiry-btn:hover {
-    background-color: #0056b3;
-}
-
-/* 🔹 Footer */
-footer {
     text-align: center;
-    padding: 15px;
-    background-color: #343a40;
-    color: white;
-    margin-top: 50px;
+    padding: 20px;
+    margin-top: 30px;
 }
 
 footer a {
-    color: #ffc107;
+    color: white;
     text-decoration: none;
+    font-weight: bold;
 }
 
-footer .social-links a {
+.social-links a {
     margin: 0 10px;
 }
