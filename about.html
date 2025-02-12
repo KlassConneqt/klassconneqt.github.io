@@ -1,50 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - KlassConneqt</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="https://postimg.cc/HcNDmSRk" alt="KlassConneqt Logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="careers.html">Careers</a></li>
-                <li><a href="student-enquiry.html">Student Enquiry</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <section class="cover-image">
-        <img src="cover-image.jpg" alt="About Us Cover Image">
-    </section>
-    
-    <section class="about-content">
-        <h1>About KlassConneqt</h1>
-        <p>At KlassConneqt, we believe that every student deserves personalized guidance to succeed. With 4 years of teaching experience, we are committed to fostering equity, opportunity, and achievement for learners of all ages.</p>
-        <p>We provide online tutoring for students from Grade 1 to 12 and college levels, ensuring that every learner receives tailored support based on their unique needs. Our activity-based, interactive teaching approach makes learning engaging and effective.</p>
-        <p>We offer one-on-one tutoring, group classes, weekend and weekday sessions, exam preparation, and homework assistance—all designed to help students grasp concepts better and apply them in real life.</p>
-        <p>Our mission is to empower students, build confidence, and make learning accessible anytime, anywhere. Through personalized teaching methods and hands-on learning, we help students improve their understanding, boost their academic performance, and gain confidence in their abilities.</p>
-        <p>Over the years, we have seen students thrive with our student-focused, results-driven learning experience. At KlassConneqt, education isn’t just about memorization—it’s about understanding, engaging, and succeeding! 🚀</p>
-    </section>
-    
-    <footer>
-        <div class="social-links">
-            <a href="https://www.instagram.com/klass_conneqt">Instagram</a>
-            <a href="https://www.facebook.com/people/Klass-Connect/61572977012406">Facebook</a>
-            <a href="https://www.linkedin.com/company/klass-connect/about/">LinkedIn</a>
-        </div>
-        <div class="contact-info">
-            <p>Email: klassconnect.edu@gmail.com</p>
-            <p>Phone: 8807606980</p>
-        </div>
-    </footer>
-</body>
-</html>
+/* Background Image */
+body {
+    background-image: url('https://postimg.cc/zLL4jwVm'); /* Online Background Image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+/* Navigation Bar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.7); /* Transparent Navbar */
+}
+
+.logo img {
+    width: 120px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* About Section */
+.about {
+    padding: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    margin: 50px auto;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.about h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.social-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
