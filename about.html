@@ -1,71 +1,52 @@
-/* Background Image */
-body {
-    background-image: url('https://postimg.cc/zLL4jwVm'); /* Online Background Image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    font-family: Arial, sans-serif;
-    color: white;
-    text-align: center;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - KlassConneqt</title>
+    <link rel="stylesheet" href="about-style.css"> <!-- ✅ New CSS file for about page -->
+</head>
+<body>
 
-/* Navigation Bar */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.7); /* Transparent Navbar */
-}
+    <!-- 🔹 Navigation Bar -->
+    <header>
+        <div class="logo">
+            <img src="https://i.postimg.cc/HcNDmSRk/logo.png" alt="KlassConneqt Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-.logo img {
-    width: 120px;
-}
+    <!-- 🔹 About Section -->
+    <section class="about">
+        <h1>About KlassConneqt</h1>
+        <p>
+            At KlassConneqt, we believe in making education accessible and interactive for students from Grade 1 to 12 and college levels.  
+            With over 4 years of teaching experience, our expert tutors create a dynamic learning environment where students don’t just memorize—they understand, explore, and apply their knowledge with confidence.  
+        </p>
+        <p>
+            Our approach includes personalized tutoring, activity-based learning, and interactive methods to ensure that every student achieves academic success.  
+            We are dedicated to helping students develop critical thinking, problem-solving skills, and subject expertise.
+        </p>
+        <p>
+            📚 <strong>Learn. Engage. Succeed.</strong> Join us and experience innovative education today!
+        </p>
+    </section>
 
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
+    <!-- 🔹 Footer -->
+    <footer>
+        <p>📧 Email: <a href="mailto:klassconnect.edu@gmail.com">klassconnect.edu@gmail.com</a> | 📞 Contact: 8807606980</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/klass_connect" target="_blank">Instagram</a> |
+            <a href="https://www.facebook.com/share/p/16471khbi6/" target="_blank">Facebook</a>
+        </div>
+    </footer>
 
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-/* About Section */
-.about {
-    padding: 50px;
-    background: rgba(0, 0, 0, 0.6);
-    margin: 50px auto;
-    width: 80%;
-    border-radius: 10px;
-}
-
-.about h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.about p {
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-/* Footer */
-footer {
-    margin-top: 30px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.social-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
+</body>
+</html>
