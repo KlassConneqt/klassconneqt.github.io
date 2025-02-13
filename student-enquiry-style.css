@@ -22,6 +22,7 @@ header {
 nav ul {
     list-style: none;
     padding: 0;
+    text-align: center;
 }
 
 nav ul li {
@@ -35,25 +36,57 @@ nav ul li a {
     font-size: 18px;
 }
 
-/* About Section */
-.about {
+/* Student Enquiry Section */
+.student-enquiry {
     text-align: center;
-    padding: 50px;
+    padding: 50px 20px;
     background-color: white;
-    margin: 20px;
+    margin: 30px auto;
+    width: 80%;
+    max-width: 800px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.about h1 {
-    font-size: 36px;
+.student-enquiry h1 {
+    font-size: 32px;
     color: #007bff;
 }
 
-.about p {
+.student-enquiry p {
     font-size: 18px;
     color: #333;
     line-height: 1.6;
+}
+
+.student-enquiry ul {
+    text-align: left;
+    display: inline-block;
+    padding: 0;
+    font-size: 18px;
+}
+
+.student-enquiry ul li {
+    margin: 10px 0;
+    list-style-type: "✅ ";
+    color: #333;
+}
+
+/* Enquiry Button */
+.enquiry-button {
+    display: inline-block;
+    padding: 15px 25px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.enquiry-button:hover {
+    background-color: #0056b3;
 }
 
 /* Footer */
