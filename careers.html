@@ -3,78 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KlassConneqt Careers</title>
-    <link rel="stylesheet" href="careers.css">
+    <title>KlassConneqt</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .logo img {
+            width: 150px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        nav ul li a:hover {
+            color: #ffeb3b;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: url('banner.jpg') no-repeat center center/cover;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.5em;
+        }
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .services ul {
+            list-style: none;
+            padding: 0;
+        }
+        .services ul li {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .enquiry a {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+        }
+        .social-media a {
+            color: white;
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .social-media a:hover {
+            color: #ffeb3b;
+        }
+        .contact p {
+            margin: 10px 0 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <img src="logo.png" alt="KlassConneqt Logo" class="logo">
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="enquiry.html">Student Enquiry</a></li>
-                </ul>
-            </nav>
+        <div class="logo">
+            <img src="logo.png" alt="KlassConneqt Logo">
         </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#enquiry">Student Enquiry</a></li>
+            </ul>
+        </nav>
     </header>
     
-    <section class="careers">
-        <div class="container">
-            <h1>Join Our Team - We Are Hiring Online Tutors!</h1>
-            <p>Are you passionate about teaching and eager to inspire students from anywhere in the world?<br>
-                At <span class="highlight">✨ KlassConneqt ✨</span>, we are building a dynamic team of online tutors who are dedicated to delivering high-quality, interactive, and engaging education.</p>
-            
-            <h2>🌟 Why Join KlassConneqt?</h2>
-            <ul>
-                <li>🚀 <b>Teach from Anywhere</b> – 100% remote, work from the comfort of your home.</li>
-                <li>⏳ <b>Flexible Hours</b> – Choose your own schedule and maintain a perfect work-life balance.</li>
-                <li>💰 <b>Competitive Pay</b> – Earn attractive compensation based on your skills and experience.</li>
-                <li>🎯 <b>Impactful Teaching</b> – Help students grow, learn, and succeed through personalized and activity-based learning.</li>
-            </ul>
-            
-            <h2>📌 Responsibilities:</h2>
-            <ul>
-                <li>✔ Conduct interactive online tutoring sessions for students from Grade 1 to 12 & college levels.</li>
-                <li>✔ Provide concept-based learning using real-world examples and hands-on activities.</li>
-                <li>✔ Assist students with homework, assignments, and exam preparation.</li>
-                <li>✔ Adapt teaching methods to suit individual learning styles and needs.</li>
-                <li>✔ Create a positive and engaging learning environment for students.</li>
-            </ul>
-            
-            <h2>📚 What We Look For:</h2>
-            <ul>
-                <li>🔹 Passionate educators with strong subject knowledge.</li>
-                <li>🔹 Excellent communication and problem-solving skills.</li>
-                <li>🔹 Ability to engage students through interactive and creative teaching methods.</li>
-                <li>🔹 Prior tutoring/teaching experience is a plus but not mandatory!</li>
-            </ul>
-            
-            <h2>✨ Perks & Benefits:</h2>
-            <ul>
-                <li>🏡 <b>Work From Home</b> – No commute, just teach from your space!</li>
-                <li>📅 <b>Flexible Scheduling</b> – Set your availability and work at your convenience.</li>
-                <li>💵 <b>Attractive Pay</b> – Get rewarded for your expertise and efforts.</li>
-                <li>📈 <b>Career Growth</b> – Gain teaching experience, enhance skills, and grow with us.</li>
-                <li>💡 <b>Supportive Community</b> – Be a part of a team that values learning and innovation.</li>
-            </ul>
-            
-            <h2>🔗 Ready to Join Our Team?</h2>
-            <p>Click the link below to apply now and start your journey with KlassConneqt!</p>
-            <a href="https://docs.google.com/forms/d/13eZxeh3IFAjotxJhGgurn4PWvnpmjfbnojrJdFzIPyc/viewform" target="_blank" class="apply-btn">📋 Apply Here</a>
-        </div>
+    <section id="home" class="hero">
+        <h1>Welcome to KlassConneqt</h1>
+        <p>Seamless Learning, Anytime, Anywhere</p>
+    </section>
+    
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>At KlassConneqt, we bridge the gap between knowledge and success! Founded with a passion for education, we provide personalized and interactive learning.</p>
+    </section>
+    
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <ul>
+            <li>✅ One-on-One Tutoring</li>
+            <li>✅ Group Tutoring</li>
+            <li>✅ Activity-Based Learning</li>
+            <li>✅ Exam Preparation</li>
+        </ul>
+    </section>
+    
+    <section id="enquiry" class="enquiry">
+        <h2>Student Enquiry</h2>
+        <p>Have questions? <a href="https://forms.gle/kj9zycnacV2tGZwB8" target="_blank">Fill out our enquiry form</a></p>
     </section>
     
     <footer>
-        <div class="container">
-            <p>Contact us: 📞 8807606980 | 📧 klassconnect.edu@gmail.com</p>
-            <div class="social-links">
-                <a href="https://www.instagram.com/klass_conneqt?igsh=MXV2dG5vZTRvMWV2Zw==" target="_blank">Instagram</a>
-                <a href="https://www.facebook.com/people/Klass-Connect/61572977012406/?rdid=ezVH7xCETWZ4RnOh&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F14weiQYgik%2F" target="_blank">Facebook</a>
-                <a href="https://www.linkedin.com/company/klass-connect/about/?viewAsMember=true" target="_blank">LinkedIn</a>
-            </div>
+        <div class="social-media">
+            <a href="https://www.instagram.com/klass_conneqt" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/people/Klass-Connect/61572977012406" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/company/klass-connect/about/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div class="contact">
+            <p>📞 8807606980 | 📧 klassconnect.edu@gmail.com</p>
         </div>
     </footer>
 </body>
