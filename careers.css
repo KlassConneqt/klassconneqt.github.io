@@ -1,90 +1,89 @@
-/* General Styles */
+/* Careers Page CSS */
+
+/* Add a stylish background color */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Light grey background */
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
+/* Header section */
+header {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    background: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo Styling */
+.logo img {
+    height: 50px;
+    width: auto;
 }
 
 /* Navigation Bar */
 .navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #004080;
-    padding: 15px 20px;
-}
-
-.navbar .logo img {
-    height: 50px;
+    justify-content: center;
+    width: 100%;
+    background: #007bff;
+    padding: 10px 0;
 }
 
 .navbar ul {
-    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: 20px;
 }
 
 .navbar ul li {
-    display: inline;
+    margin: 0 15px;
 }
 
 .navbar ul li a {
-    color: white;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* Main Content */
-.header {
-    text-align: center;
-    font-size: 28px;
-    color: #004080;
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-.section {
-    background: white;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.section h2 {
-    color: #004080;
-}
-
-.section p {
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-/* Social Media & Footer */
-.footer {
-    text-align: center;
-    background-color: #004080;
     color: white;
-    padding: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #ffcc00;
+}
+
+/* Careers Page Content */
+.container {
+    width: 80%;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Social Media Links */
+.footer {
+    background: #007bff;
+    padding: 10px;
+    text-align: center;
 }
 
 .footer a {
     color: white;
-    text-decoration: none;
     margin: 0 10px;
-    font-size: 16px;
+    font-size: 18px;
+    text-decoration: none;
 }
 
 .footer a:hover {
-    text-decoration: underline;
+    color: #ffcc00;
 }
