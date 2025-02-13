@@ -1,4 +1,4 @@
-/* Background Image */
+/* General Styling */
 body {
     background-image: url('https://postimg.cc/zLL4jwVm');
     background-size: cover;
@@ -16,20 +16,18 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.7);
-    flex-wrap: wrap;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .logo img {
-    width: 100px; /* Slightly smaller for mobile */
+    width: 120px; /* Logo size */
 }
 
-/* Navigation */
 nav ul {
     list-style: none;
     display: flex;
-    gap: 15px;
+    gap: 20px;
     padding: 0;
     margin: 0;
 }
@@ -41,34 +39,35 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 /* About Section */
 .about {
-    padding: 30px;
-    background: rgba(0, 0, 0, 0.6);
-    margin: 30px auto;
-    width: 90%; /* Increased width for better fit on mobile */
+    padding: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    margin: 50px auto;
+    width: 80%;
     border-radius: 10px;
+    max-width: 800px; /* Keeps it readable */
 }
 
 .about h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 
 .about p {
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.6;
 }
 
 /* Footer */
 footer {
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 30px;
+    padding: 20px;
     background: rgba(0, 0, 0, 0.7);
-    text-align: center;
 }
 
 .social-links {
@@ -81,7 +80,7 @@ footer {
 .social-links a {
     color: white;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 /* Mobile View Adjustments */
@@ -89,10 +88,11 @@ footer {
     header {
         flex-direction: column;
         text-align: center;
+        padding: 10px;
     }
 
     .logo img {
-        width: 90px; /* Smaller for better fit */
+        width: 100px; /* Adjust logo size */
     }
 
     nav ul {
@@ -104,20 +104,25 @@ footer {
         display: block;
     }
 
+    nav ul li a {
+        font-size: 16px;
+    }
+
     .about {
-        width: 95%;
-        padding: 20px;
+        width: 90%;
+        padding: 25px;
+        margin: 30px auto;
     }
 
     .about h1 {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     .about p {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     footer {
-        padding: 10px;
+        padding: 15px;
     }
 }
