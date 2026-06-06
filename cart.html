@@ -47,10 +47,19 @@
 
         /* CART & FORM SPECIFIC STYLING TO LOOK PROFESSIONAL */
         .cart-container { padding: 60px 10%; min-height: 50vh; max-width: 800px; margin: auto; }
-        #cart-list { list-style: none; margin: 20px 0; }
-        #cart-list li { background: #f1f5f9; padding: 15px; margin-bottom: 10px; border-radius: 4px; border-left: 4px solid var(--accent-blue); font-weight: bold; color: var(--primary-dark); }
+        #cart-list { list-style: none; margin: 20px 0; padding: 0; }
+        #cart-list li { background: #f1f5f9; padding: 15px; margin-bottom: 10px; border-radius: 4px; border-left: 4px solid var(--accent-blue); font-weight: bold; color: var(--primary-dark); display: flex; justify-content: space-between; align-items: center; }
+        .remove-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
+        .remove-btn:hover { background: #dc2626; }
+        
         input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 4px; font-family: inherit; font-size: 1rem; }
         input:focus, textarea:focus { outline: none; border-color: var(--accent-blue); }
+
+        /* CUSTOM POPUP STYLING */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .modal-box { background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: popIn 0.3s ease-out; }
+        .modal-icon { font-size: 4rem; color: #10b981; margin-bottom: 15px; }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
@@ -83,8 +92,17 @@
             <input type="email" id="email" placeholder="Email Address" required>
             <input type="text" id="phone" placeholder="WhatsApp Number" required>
             <textarea id="message" placeholder="Optional Message (Any specific questions?)" rows="4"></textarea>
-            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 12px;">Send Enquiry</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%; font-size: 1.1rem; padding: 12px;">Send Enquiry</button>
         </form>
+    </div>
+
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box">
+            <div class="modal-icon">✅</div>
+            <h2 style="color: var(--primary-dark); margin-bottom: 10px;">Enquiry Sent!</h2>
+            <p style="color: #64748b; margin-bottom: 25px;">Thank you for your interest! Our team has received your details and will contact you shortly.</p>
+            <button onclick="closeModalAndRedirect()" class="btn btn-primary" style="width: 100%;">Return to Home</button>
+        </div>
     </div>
 
     <footer>
@@ -118,40 +136,73 @@
     </footer>
 
     <script>
-        // Load the items from the cart and display them on the page
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        const cartList = document.getElementById('cart-list');
-        
-        if (cart.length === 0) {
-            cartList.innerHTML = '<li style="border-left: 4px solid #ef4444;">Your cart is currently empty. Please select a course from the Home page.</li>';
-        } else {
-            cartList.innerHTML = cart.map(c => `<li>${c}</li>`).join('');
+        // Function to load and render the cart items
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartList = document.getElementById('cart-list');
+            
+            if (cart.length === 0) {
+                cartList.innerHTML = '<li style="border-left: 4px solid #ef4444; justify-content: center;">Your cart is currently empty. Please select a course from the Home page.</li>';
+            } else {
+                cartList.innerHTML = cart.map((c, index) => `
+                    <li>
+                        <span>${c}</span>
+                        <button type="button" class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                    </li>
+                `).join('');
+            }
         }
+
+        // Function to remove an item
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart(); // Refresh the list
+        }
+
+        // Initial render on page load
+        renderCart();
 
         // Handle the email submission
         document.getElementById('enquiryForm').onsubmit = (e) => {
             e.preventDefault();
             
-            if (cart.length === 0) {
+            // Get latest cart data when submitting
+            const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            if (currentCart.length === 0) {
                 alert("Please add a course to your cart before submitting an enquiry.");
                 return;
             }
 
+            // Change button text while sending
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "Sending...";
+            submitBtn.disabled = true;
+
             emailjs.send("service_zn289y8", "template_g6ozwsm", {
-                course_name: cart.join(', '),
+                course_name: currentCart.join(', '),
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 message: document.getElementById('message').value
             }).then(() => { 
-                alert("Enquiry Sent Successfully! We will contact you soon."); 
                 localStorage.clear(); 
-                window.location.href='index.html'; 
+                document.getElementById('successModal').style.display = 'flex'; // Show custom popup
             }).catch((error) => {
                 alert("Failed to send enquiry. Please check your internet connection and try again.");
                 console.error(error);
+                submitBtn.innerText = "Send Enquiry";
+                submitBtn.disabled = false;
             });
         };
+
+        // Close Modal and Redirect
+        function closeModalAndRedirect() {
+            document.getElementById('successModal').style.display = 'none';
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
