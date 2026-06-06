@@ -26,7 +26,7 @@
 
         nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: bold; color: var(--accent-blue); }
-        .logo img { height: 40px; width: auto; } /* Pulls logo.png from your GitHub */
+        .logo img { height: 40px; width: auto; }
         .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent-blue); }
 
@@ -94,12 +94,13 @@
                 </ul>
             </div>
             <div class="split-card">
-                <h3>💼 Professional Upskilling</h3>
-                <p>Fast-tracked, industry-focused training designed to help college students and graduates clear technical and aptitude rounds for placements.</p>
+                <h3>💼 Professional & Language Upskilling</h3>
+                <p>Fast-tracked, industry-focused training designed to help college students and graduates clear technical rounds and expand global opportunities.</p>
                 <br>
                 <ul>
                     <li><strong>CCNA Certification:</strong> Master networking fundamentals.</li>
-                    <li><strong>Aptitude for Placement:</strong> Quantitative, logical, and verbal reasoning.</li>
+                    <li><strong>Aptitude for Placement:</strong> Crack campus interviews.</li>
+                    <li><strong>Language Hub:</strong> Spoken English, Tamil, and Japanese.</li>
                 </ul>
             </div>
         </div>
@@ -109,90 +110,8 @@
         <h2 class="section-title">Our Complete Course Catalog</h2>
         <p class="section-subtitle">Select a subject to view our practical, hands-on syllabus designed for maximum retention.</p>
         
-        <div class="course-grid">
-            <div class="course-card">
-                <div>
-                    <h3>Mathematics Mastery</h3>
-                    <p class="course-desc">Practical problem-solving for 6th-12th standard.</p>
-                    <div class="course-details">
-                        <p><strong>Category:</strong> Academic</p>
-                        <p><strong>Duration:</strong> 1 Year</p>
-                    </div>
-                </div>
-                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
-            </div>
-
-            <div class="course-card">
-                <div>
-                    <h3>Physics</h3>
-                    <p class="course-desc">Conceptual physics with real-world examples.</p>
-                    <div class="course-details">
-                        <p><strong>Category:</strong> Academic</p>
-                        <p><strong>Duration:</strong> 1 Year</p>
-                    </div>
-                </div>
-                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
-            </div>
-
-            <div class="course-card">
-                <div>
-                    <h3>Chemistry</h3>
-                    <p class="course-desc">Inorganic, organic, and physical chemistry made easy.</p>
-                    <div class="course-details">
-                        <p><strong>Category:</strong> Academic</p>
-                        <p><strong>Duration:</strong> 1 Year</p>
-                    </div>
-                </div>
-                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
-            </div>
-
-            <div class="course-card">
-                <div>
-                    <h3>Biology</h3>
-                    <p class="course-desc">Comprehensive life sciences curriculum.</p>
-                    <div class="course-details">
-                        <p><strong>Category:</strong> Academic</p>
-                        <p><strong>Duration:</strong> 1 Year</p>
-                    </div>
-                </div>
-                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
-            </div>
-
-            <div class="course-card">
-                <div>
-                    <h3>Computer Science</h3>
-                    <p class="course-desc">Foundational coding, logic, and architecture.</p>
-                    <div class="course-details">
-                        <p><strong>Category:</strong> Academic</p>
-                        <p><strong>Duration:</strong> 1 Year</p>
-                    </div>
-                </div>
-                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
-            </div>
-
-            <div class="course-card" style="border-top: 4px solid var(--primary-dark);">
-                <div>
-                    <h3>CCNA Certification</h3>
-                    <p class="course-desc">Intensive networking bootcamp for IT professionals.</p>
-                    <div class="course-details">
-                        <p><strong>Category:</strong> Professional</p>
-                        <p><strong>Duration:</strong> 45 Days</p>
-                    </div>
-                </div>
-                <a href="enroll.html" class="btn btn-primary" style="width: 100%;">View Details & Enroll</a>
-            </div>
-
-            <div class="course-card" style="border-top: 4px solid var(--primary-dark);">
-                <div>
-                    <h3>Aptitude for Placement</h3>
-                    <p class="course-desc">Crack campus interviews with speed and accuracy.</p>
-                    <div class="course-details">
-                        <p><strong>Category:</strong> Professional</p>
-                        <p><strong>Duration:</strong> Fast-Track</p>
-                    </div>
-                </div>
-                <a href="enroll.html" class="btn btn-primary" style="width: 100%;">View Details & Enroll</a>
-            </div>
+        <div class="course-grid" id="course-container">
+            <p style="text-align: center; width: 100%; color: var(--accent-blue); font-weight: bold;">Loading courses from database...</p>
         </div>
     </section>
 
@@ -218,6 +137,61 @@
             </ul>
         </div>
     </footer>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
+        
+        async function loadCourses() {
+            const container = document.getElementById('course-container');
+            try {
+                const response = await fetch(API_URL);
+                const courses = await response.json();
+                
+                // Clear the "Loading..." text
+                container.innerHTML = '';
+                
+                // If sheet is empty
+                if(courses.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; width: 100%;">No courses found. Please add courses to your Google Sheet.</p>';
+                    return;
+                }
+
+                // Loop through each course and build a card
+                courses.forEach(course => {
+                    const courseName = course["Course Name"] || "New Course";
+                    const category = course["Category"] || "General";
+                    const duration = course["Duration"] || "N/A";
+                    const description = course["Description / Syllabus"] || "Practical, hands-on training.";
+                    
+                    // Add a darker top border if it's a Professional course
+                    const borderStyle = category.toLowerCase().includes('professional') ? 'border-top: 4px solid var(--primary-dark);' : '';
+                    const buttonStyle = category.toLowerCase().includes('professional') ? 'btn-primary' : 'btn-outline';
+
+                    const cardHTML = `
+                        <div class="course-card" style="${borderStyle}">
+                            <div>
+                                <h3>${courseName}</h3>
+                                <p class="course-desc">${description}</p>
+                                <div class="course-details">
+                                    <p><strong>Category:</strong> ${category}</p>
+                                    <p><strong>Duration:</strong> ${duration}</p>
+                                </div>
+                            </div>
+                            <a href="enroll.html" class="btn ${buttonStyle}" style="width: 100%;">View Details & Enroll</a>
+                        </div>
+                    `;
+                    container.innerHTML += cardHTML;
+                });
+                
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                container.innerHTML = '<p style="text-align: center; width: 100%; color: red;">Failed to load courses. Please check your Google Sheet API connection.</p>';
+            }
+        }
+
+        // Run the function when the page loads
+        document.addEventListener('DOMContentLoaded', loadCourses);
+    </script>
 
 </body>
 </html>
