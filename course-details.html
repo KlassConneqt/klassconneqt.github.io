@@ -1,17 +1,62 @@
-<script>
-    // 1. Get ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const courseId = urlParams.get('id');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Details | KlassConneqt</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>(function(){ emailjs.init("a-SkplDQ-6DlInywr"); })();</script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; padding: 40px 10%; }
+        .card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn { padding: 12px 24px; cursor: pointer; border: none; background: #0ea5e9; color: white; border-radius: 4px; font-weight: bold; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 id="title">Loading...</h1>
+        <p id="details" style="margin: 20px 0; color: #475569; font-size: 1.1rem;"></p>
+        <button class="btn" onclick="addToCart()">Add to Cart</button>
+        <hr style="margin: 40px 0;">
+        <h3>Enquire Now</h3>
+        <form id="enquiryForm">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="text" id="phone" placeholder="WhatsApp Number" required>
+            <textarea id="message" style="width:100%; padding:10px;" placeholder="Any questions?"></textarea>
+            <button type="submit" class="btn">Send Enquiry</button>
+        </form>
+    </div>
+    <script>
+        const API_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL"; // Paste your deployment URL here
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        let currentCourse = "";
 
-    // 2. Fetch specific course details from Google Sheet
-    async function loadCourseDetails() {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        const course = data.find(c => c["Course ID"] == courseId);
-        
-        // 3. Populate your template
-        document.getElementById('course-title').innerText = course["Course Name"];
-        document.getElementById('full-desc').innerText = course["Full Details"];
-        // ... (etc for other fields)
-    }
-</script>
+        fetch(API_URL).then(res => res.json()).then(data => {
+            const course = data.find(c => c['Course ID'] == id);
+            currentCourse = course["Course Name"];
+            document.getElementById('title').innerText = course["Course Name"];
+            document.getElementById('details').innerText = course["Full Details"];
+        });
+
+        document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            emailjs.send("service_zn289y8", "YOUR_TEMPLATE_ID_HERE", {
+                course_name: currentCourse,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value
+            }).then(() => alert("Enquiry Sent Successfully!"));
+        });
+
+        function addToCart() {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart.push(currentCourse);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(currentCourse + " added to cart!");
+        }
+    </script>
+</body>
+</html>
