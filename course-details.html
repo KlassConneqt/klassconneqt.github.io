@@ -1,0 +1,17 @@
+<script>
+    // 1. Get ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = urlParams.get('id');
+
+    // 2. Fetch specific course details from Google Sheet
+    async function loadCourseDetails() {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        const course = data.find(c => c["Course ID"] == courseId);
+        
+        // 3. Populate your template
+        document.getElementById('course-title').innerText = course["Course Name"];
+        document.getElementById('full-desc').innerText = course["Full Details"];
+        // ... (etc for other fields)
+    }
+</script>
