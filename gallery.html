@@ -2,17 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | KlassConneqt</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
     <style>
-        body { font-family: sans-serif; padding: 50px 5%; background: #f8fafc; }
+        /* --- COPYING YOUR EXACT STYLE --- */
+        :root { --primary-dark: #0f172a; --secondary-dark: #1e293b; --accent-blue: #0ea5e9; --text-light: #f8fafc; --text-dark: #334155; --bg-light: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        
+        .btn { padding: 10px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.3s; text-align: center;}
+        .btn-primary { background-color: var(--accent-blue); color: white; border: none; }
+        
+        /* LOGO STYLING */
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-container img { height: 85px; width: 85px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .logo-text { display: flex; flex-direction: column; justify-content: center; }
+        .logo-title { font-size: 1.8rem; font-weight: 800; color: var(--text-light); }
+        .logo-tagline { font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px; }
+
+        /* NAVIGATION */
+        nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { margin: 0 15px; color: var(--text-light); }
+        
+        /* FOOTER */
+        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 60px 5% 20px 5%; font-size: 0.95rem; margin-top: 50px; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--text-light); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; color: #cbd5e1; }
+        .footer-bottom { border-top: 1px solid #334155; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 0.85rem; }
+
+        /* GALLERY SPECIFIC STYLING */
+        .gallery-wrapper { padding: 80px 5%; min-height: 50vh; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .gallery-item { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .gallery-item img { width: 100%; height: 250px; object-fit: cover; border-radius: 4px; }
     </style>
 </head>
 <body>
-    <h2 style="text-align: center; margin-bottom: 40px;">Company Gallery</h2>
-    <div class="gallery-grid" id="gallery-container">Loading...</div>
+
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="KlassConneqt Logo">
+            <div class="logo-text">
+                <span class="logo-title">KLASSCONNEQT</span>
+                <span class="logo-tagline">Seamless Learning, Anytime, Anywhere.</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#courses">Courses</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="index.html#courses" class="btn btn-primary">Enroll Now</a>
+        </div>
+    </nav>
+
+    <div class="gallery-wrapper">
+        <h2 style="text-align: center; margin-bottom: 40px; color: var(--primary-dark);">Company Gallery</h2>
+        <div class="gallery-grid" id="gallery-container">Loading...</div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo-container">
+                    <img src="logo.png" alt="Logo">
+                    <div class="logo-text">
+                        <span class="logo-title">KLASSCONNEQT</span>
+                        <span class="logo-tagline" style="color: #cbd5e1;">Seamless Learning, Anytime, Anywhere.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Academic</h4>
+                <ul><li>Mathematics Mastery</li><li>Physics & Chemistry</li><li>Biology</li><li>Computer Science</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Professional</h4>
+                <ul><li>CCNA Certification</li><li>Aptitude for Placement</li><li>Language Hub</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 Salem, Tamilnadu, India</li>
+                    <li>✉️ klassconnect.edu@gmail.com</li>
+                    <li>📞 +91-8807606980</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 KlassConneqt. All Rights Reserved.</p>
+        </div>
+    </footer>
+
     <script>
         fetch("https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec?action=gallery")
             .then(res => res.json())
