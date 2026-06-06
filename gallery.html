@@ -14,7 +14,7 @@
     <h2 style="text-align: center; margin-bottom: 40px;">Company Gallery</h2>
     <div class="gallery-grid" id="gallery-container">Loading...</div>
     <script>
-        fetch("YOUR_GOOGLE_APPS_SCRIPT_URL" + "?action=gallery")
+        fetch("https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec?action=gallery")
             .then(res => res.json())
             .then(data => {
                 document.getElementById('gallery-container').innerHTML = data.map(i => `
