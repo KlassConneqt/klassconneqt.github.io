@@ -73,6 +73,11 @@
         .course-details { margin-bottom: 20px; font-size: 0.9rem; color: #334155; background: #f8fafc; padding: 15px; border-radius: 6px;}
         .course-details p { margin-bottom: 5px; }
 
+        /* PAGINATION BUTTONS CSS */
+        .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
+        .page-btn { padding: 8px 16px; border: 2px solid var(--accent-blue); background: transparent; color: var(--accent-blue); border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .page-btn.active, .page-btn:hover { background: var(--accent-blue); color: white; }
+
         /* UPGRADED ENTERPRISE FOOTER */
         footer { 
             background-color: var(--secondary-dark); 
@@ -199,6 +204,8 @@
         <div class="course-grid" id="course-container">
             <p style="text-align: center; width: 100%; color: var(--accent-blue); font-weight: bold;">Loading courses from database...</p>
         </div>
+
+        <div id="pagination-controls" class="pagination"></div>
     </section>
 
     <footer>
@@ -208,7 +215,7 @@
                     <img src="logo.png" alt="KlassConneqt Logo">
                     KLASSCONNEQT
                 </div>
-                <p>Empowering Students. Accelerating Careers. Your next-gen platform for academic excellence and professional growth.</p>
+                <p>Expert-led coaching for academic mastery and career success.</p>
             </div>
 
             <div class="footer-col">
@@ -234,7 +241,7 @@
                 <h4>Contact Us</h4>
                 <ul>
                     <li>📍 <span>Salem, Tamilnadu, India</span></li>
-                    <li>✉️ <span>hello@klassconneqt.com</span></li>
+                    <li>✉️ <span>klassconnect.edu@gmail.com</span></li>
                     <li>📞 <span>+91-8807606980</span></li>
                 </ul>
             </div>
@@ -248,45 +255,24 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
         
+        // --- PAGINATION SETTINGS ---
+        let allCourses = [];
+        let currentPage = 1;
+        const coursesPerPage = 8; // Change this to 4 if you only want 1 row per page!
+
         async function loadCourses() {
             const container = document.getElementById('course-container');
             try {
                 const response = await fetch(API_URL);
-                const courses = await response.json();
+                allCourses = await response.json();
                 
-                container.innerHTML = '';
-                
-                if(courses.length === 0) {
+                if(allCourses.length === 0) {
                     container.innerHTML = '<p style="text-align: center; width: 100%;">No courses found. Please add courses to your Google Sheet.</p>';
                     return;
                 }
 
-                courses.forEach(course => {
-                    const courseName = course["Course Name"] || "New Course";
-                    const category = course["Category"] || "General";
-                    const duration = course["Duration"] || "N/A";
-                    const audience = course["Target Audience"] || "Everyone";
-                    const description = course["Description / Syllabus"] || "Practical, hands-on training.";
-                    
-                    const borderStyle = category.toLowerCase().includes('professional') || category.toLowerCase().includes('language') ? 'border-top: 4px solid var(--primary-dark);' : '';
-                    const buttonStyle = category.toLowerCase().includes('professional') || category.toLowerCase().includes('language') ? 'btn-primary' : 'btn-outline';
-
-                    const cardHTML = `
-                        <div class="course-card" style="${borderStyle}">
-                            <div>
-                                <h3>${courseName}</h3>
-                                <p class="course-desc">${description}</p>
-                                <div class="course-details">
-                                    <p><strong>For:</strong> ${audience}</p>
-                                    <p><strong>Duration:</strong> ${duration}</p>
-                                    <p><strong>Category:</strong> ${category}</p>
-                                </div>
-                            </div>
-                            <a href="enroll.html" class="btn ${buttonStyle}" style="width: 100%;">View Details & Enroll</a>
-                        </div>
-                    `;
-                    container.innerHTML += cardHTML;
-                });
+                // Render the first page of courses
+                displayCourses();
                 
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -294,6 +280,74 @@
             }
         }
 
+        function displayCourses() {
+            const container = document.getElementById('course-container');
+            container.innerHTML = ''; // Clear current courses
+            
+            // Calculate which courses to show based on the page number
+            const startIndex = (currentPage - 1) * coursesPerPage;
+            const endIndex = startIndex + coursesPerPage;
+            const paginatedCourses = allCourses.slice(startIndex, endIndex);
+
+            // Loop through the specific courses for this page
+            paginatedCourses.forEach(course => {
+                const courseName = course["Course Name"] || "New Course";
+                const category = course["Category"] || "General";
+                const duration = course["Duration"] || "N/A";
+                const audience = course["Target Audience"] || "Everyone";
+                const description = course["Description / Syllabus"] || "Practical, hands-on training.";
+                
+                const borderStyle = category.toLowerCase().includes('professional') || category.toLowerCase().includes('language') ? 'border-top: 4px solid var(--primary-dark);' : '';
+                const buttonStyle = category.toLowerCase().includes('professional') || category.toLowerCase().includes('language') ? 'btn-primary' : 'btn-outline';
+
+                const cardHTML = `
+                    <div class="course-card" style="${borderStyle}">
+                        <div>
+                            <h3>${courseName}</h3>
+                            <p class="course-desc">${description}</p>
+                            <div class="course-details">
+                                <p><strong>For:</strong> ${audience}</p>
+                                <p><strong>Duration:</strong> ${duration}</p>
+                                <p><strong>Category:</strong> ${category}</p>
+                            </div>
+                        </div>
+                        <a href="enroll.html" class="btn ${buttonStyle}" style="width: 100%;">View Details & Enroll</a>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+
+            setupPagination();
+        }
+
+        function setupPagination() {
+            const paginationContainer = document.getElementById('pagination-controls');
+            paginationContainer.innerHTML = ''; // Clear old buttons
+            
+            const pageCount = Math.ceil(allCourses.length / coursesPerPage);
+            
+            // If there's only 1 page worth of courses, don't show buttons
+            if (pageCount <= 1) return; 
+
+            // Create buttons for each page (1, 2, 3...)
+            for (let i = 1; i <= pageCount; i++) {
+                const btn = document.createElement('button');
+                btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                btn.innerText = i;
+                
+                // When button is clicked, change page and re-render
+                btn.addEventListener('click', () => {
+                    currentPage = i;
+                    displayCourses();
+                    // Smoothly scroll back to the top of the course section
+                    document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                paginationContainer.appendChild(btn);
+            }
+        }
+
+        // Run the function when the page loads
         document.addEventListener('DOMContentLoaded', loadCourses);
     </script>
 
