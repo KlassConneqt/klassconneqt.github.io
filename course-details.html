@@ -2,17 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Course Details</title>
-    <style> /* COPY CSS FROM index.html */ </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details | KlassConneqt</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        /* [COPYING EXACT STYLE FROM YOUR INDEX] */
+        :root { --primary-dark: #0f172a; --secondary-dark: #1e293b; --accent-blue: #0ea5e9; --text-light: #f8fafc; --text-dark: #334155; --bg-light: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        .btn { padding: 10px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.3s; text-align: center;}
+        .btn-primary { background-color: var(--accent-blue); color: white; border: none; }
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-container img { height: 85px; width: 85px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .logo-text { display: flex; flex-direction: column; justify-content: center; }
+        .logo-title { font-size: 1.8rem; font-weight: 800; color: var(--text-light); }
+        .logo-tagline { font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px; }
+        nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links a { margin: 0 15px; color: var(--text-light); }
+        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 60px 5% 20px 5%; font-size: 0.95rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 40px; }
+    </style>
 </head>
 <body>
-    <nav> </nav>
-    <div style="padding: 50px 10%;">
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo">
+            <div class="logo-text">
+                <span class="logo-title">KLASSCONNEQT</span>
+                <span class="logo-tagline">Seamless Learning, Anytime, Anywhere.</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="cart.html" class="btn btn-primary">🛒 Cart</a>
+        </div>
+    </nav>
+    <div style="padding: 50px 10%; min-height: 50vh;">
         <h1 id="title">Loading...</h1>
         <p id="details" style="margin: 20px 0; font-size: 1.1rem;"></p>
         <button class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
     </div>
-    <footer> </footer>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col"><div class="logo-container"><img src="logo.png" alt="Logo"><div class="logo-text"><span class="logo-title">KLASSCONNEQT</span><span class="logo-tagline" style="color: #cbd5e1;">Seamless Learning, Anytime, Anywhere.</span></div></div></div>
+            <div class="footer-col"><h4>Academic</h4><ul><li>Mathematics</li><li>Physics</li><li>Biology</li></ul></div>
+            <div class="footer-col"><h4>Professional</h4><ul><li>CCNA</li><li>Aptitude</li><li>Japanese</li></ul></div>
+            <div class="footer-col"><h4>Contact</h4><ul><li>📍 Salem, India</li><li>✉️ klassconnect.edu@gmail.com</li></ul></div>
+        </div>
+    </footer>
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
         const id = new URLSearchParams(window.location.search).get('id');
@@ -26,7 +64,7 @@
             let cart = JSON.parse(localStorage.getItem('cart') || '[]');
             cart.push(window.currentCourse);
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert("Added to Cart!");
+            alert(window.currentCourse + " added to cart!");
         }
     </script>
 </body>
