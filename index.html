@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KlassConneqt | Next-Gen Learning Platform</title>
     <link rel="icon" type="image/png" href="logo.png">
+    
     <style>
+        /* --- ALL CSS STYLING --- */
         :root {
             --primary-dark: #0f172a; 
             --secondary-dark: #1e293b; 
@@ -25,24 +27,25 @@
         .btn-outline { background-color: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
         .btn-outline:hover { background-color: var(--accent-blue); color: white; }
 
-        /* Desktop Navigation */
-        nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         /* UPGRADED LOGO STYLING - MEDIUM/LARGE SIZE */
         .logo { 
             display: flex; 
             align-items: center; 
-            gap: 15px; /* Widened slightly to give the bigger image room */
-            font-size: 1.8rem; /* Bumped the text size up so it balances with the larger logo */
+            gap: 15px; 
+            font-size: 1.8rem; 
             font-weight: 800; 
             color: var(--text-light); 
         }
         .logo img { 
-            height: 85px; /* Increased from 60px to 85px for that bold, commanding look */
-            width: 85px; /* Must match height exactly to keep it a perfect circle */
+            height: 85px; 
+            width: 85px; 
             object-fit: cover; 
             border-radius: 50%; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
         }
+
+        /* Desktop Navigation */
+        nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .nav-links { display: flex; align-items: center; }
         .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent-blue); }
@@ -70,10 +73,53 @@
         .course-details { margin-bottom: 20px; font-size: 0.9rem; color: #334155; background: #f8fafc; padding: 15px; border-radius: 6px;}
         .course-details p { margin-bottom: 5px; }
 
-        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-        footer h4 { color: var(--accent-blue); margin-bottom: 15px; }
-        footer ul { list-style: none; }
-        footer ul li { margin-bottom: 10px; }
+        /* UPGRADED ENTERPRISE FOOTER */
+        footer { 
+            background-color: var(--secondary-dark); 
+            color: var(--text-light); 
+            padding: 60px 5% 20px 5%; 
+            font-size: 0.95rem; 
+        }
+        .footer-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 40px; 
+            margin-bottom: 40px; 
+        }
+        .footer-brand .footer-logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: var(--text-light); 
+            margin-bottom: 15px; 
+        }
+        .footer-brand .footer-logo img { 
+            height: 45px; 
+            width: 45px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
+        .footer-brand p { color: #cbd5e1; line-height: 1.6; }
+        .footer-col h4 { 
+            color: var(--text-light); 
+            margin-bottom: 20px; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; color: #cbd5e1; transition: color 0.3s; }
+        .footer-col ul li a:hover { color: var(--accent-blue); }
+        .footer-contact li { display: flex; gap: 12px; align-items: flex-start; }
+        .footer-bottom { 
+            border-top: 1px solid #334155; 
+            padding-top: 20px; 
+            text-align: center; 
+            color: #94a3b8; 
+            font-size: 0.85rem; 
+        }
 
         /* MOBILE RESPONSIVENESS FIXES */
         @media (max-width: 768px) {
@@ -156,25 +202,46 @@
     </section>
 
     <footer>
-        <div>
-            <h4>KLASSCONNEQT</h4>
-            <p>Empowering Learners Worldwide through practical, expert-led education.</p>
+        <div class="footer-container">
+            <div class="footer-col footer-brand">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="KlassConneqt Logo">
+                    KLASSCONNEQT
+                </div>
+                <p>Empowering Students. Accelerating Careers. Your next-gen platform for academic excellence and professional growth.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Academic Excellence</h4>
+                <ul>
+                    <li><a href="#courses">Mathematics Mastery</a></li>
+                    <li><a href="#courses">Physics & Chemistry</a></li>
+                    <li><a href="#courses">Biology</a></li>
+                    <li><a href="#courses">Computer Science</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Professional Upskilling</h4>
+                <ul>
+                    <li><a href="#courses">CCNA Certification</a></li>
+                    <li><a href="#courses">Aptitude for Placement</a></li>
+                    <li><a href="#courses">Language Hub</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 <span>Salem, Tamilnadu, India</span></li>
+                    <li>✉️ <span>hello@klassconneqt.com</span></li>
+                    <li>📞 <span>+91-8807606980</span></li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="enroll.html">Enroll Now</a></li>
-                <li><a href="#">About Us</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>Contact Info</h4>
-            <ul>
-                <li>Email: hello@klassconneqt.com</li>
-                <li>WhatsApp: +91-XXXXXXXXXX</li>
-                <li>Bengaluru, Karnataka, India</li>
-            </ul>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 KlassConneqt. All Rights Reserved.</p>
         </div>
     </footer>
 
