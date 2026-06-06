@@ -149,12 +149,12 @@
 
     <nav>
         <div class="logo">
-         <img src="logo.png" alt="KlassConneqt Logo">
-         <div style="display: flex; flex-direction: column; justify-content: center;">
-             <span>KLASSCONNEQT</span>
-             <span style="font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px;">Seamless Learning, Anytime, Anywhere.</span>
-         </div>
-     </div>
+            <img src="logo.png" alt="KlassConneqt Logo">
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+                <span>KLASSCONNEQT</span>
+                <span style="font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px;">Seamless Learning, Anytime, Anywhere.</span>
+            </div>
+        </div>
         <div class="nav-links">
             <a href="#">Home</a>
             <a href="#courses">Courses</a>
@@ -261,47 +261,32 @@
 
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
-        
-        // --- PAGINATION SETTINGS ---
         let allCourses = [];
         let currentPage = 1;
-        const coursesPerPage = 8; // Change this to 4 if you only want 1 row per page!
+        const coursesPerPage = 8; 
 
         async function loadCourses() {
             const container = document.getElementById('course-container');
             try {
                 const response = await fetch(API_URL);
                 allCourses = await response.json();
-                
-                if(allCourses.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; width: 100%;">No courses found. Please add courses to your Google Sheet.</p>';
-                    return;
-                }
-
-                // Render the first page of courses
                 displayCourses();
-                
             } catch (error) {
-                console.error("Error fetching data:", error);
-                container.innerHTML = '<p style="text-align: center; width: 100%; color: red;">Failed to load courses. Please check your Google Sheet API connection.</p>';
+                container.innerHTML = '<p style="text-align: center; width: 100%; color: red;">Failed to load courses.</p>';
             }
         }
 
         function displayCourses() {
             const container = document.getElementById('course-container');
-            container.innerHTML = ''; // Clear current courses
-            
-            // Calculate which courses to show based on the page number
+            container.innerHTML = ''; 
             const startIndex = (currentPage - 1) * coursesPerPage;
             const endIndex = startIndex + coursesPerPage;
             const paginatedCourses = allCourses.slice(startIndex, endIndex);
 
-            // Loop through the specific courses for this page
             paginatedCourses.forEach(course => {
                 const courseName = course["Course Name"] || "New Course";
+                const courseId = course["Course ID"] || "0";
                 const category = course["Category"] || "General";
-                const duration = course["Duration"] || "N/A";
-                const audience = course["Target Audience"] || "Everyone";
                 const description = course["Description / Syllabus"] || "Practical, hands-on training.";
                 
                 const borderStyle = category.toLowerCase().includes('professional') || category.toLowerCase().includes('language') ? 'border-top: 4px solid var(--primary-dark);' : '';
@@ -311,52 +296,35 @@
                     <div class="course-card" style="${borderStyle}">
                         <div>
                             <h3>${courseName}</h3>
-                            <p class="course-desc">${description}</p>
-                            <div class="course-details">
-                                <p><strong>For:</strong> ${audience}</p>
-                                <p><strong>Duration:</strong> ${duration}</p>
-                                <p><strong>Category:</strong> ${category}</p>
-                            </div>
+                            <p class="course-desc">${description.substring(0, 100)}...</p>
                         </div>
-                        <a href="enroll.html" class="btn ${buttonStyle}" style="width: 100%;">View Details & Enroll</a>
+                        <a href="course-details.html?id=${courseId}" class="btn ${buttonStyle}" style="width: 100%;">View Details & Enquire</a>
                     </div>
                 `;
                 container.innerHTML += cardHTML;
             });
-
             setupPagination();
         }
 
         function setupPagination() {
             const paginationContainer = document.getElementById('pagination-controls');
-            paginationContainer.innerHTML = ''; // Clear old buttons
-            
+            paginationContainer.innerHTML = ''; 
             const pageCount = Math.ceil(allCourses.length / coursesPerPage);
-            
-            // If there's only 1 page worth of courses, don't show buttons
             if (pageCount <= 1) return; 
-
-            // Create buttons for each page (1, 2, 3...)
             for (let i = 1; i <= pageCount; i++) {
                 const btn = document.createElement('button');
                 btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
                 btn.innerText = i;
-                
-                // When button is clicked, change page and re-render
                 btn.addEventListener('click', () => {
                     currentPage = i;
                     displayCourses();
-                    // Smoothly scroll back to the top of the course section
                     document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
                 });
-                
                 paginationContainer.appendChild(btn);
             }
         }
 
-        // Run the function when the page loads
         document.addEventListener('DOMContentLoaded', loadCourses);
     </script>
-
 </body>
 </html>
