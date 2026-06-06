@@ -3,60 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KlassConneqt | Powering the Future of Education</title>
+    <title>KlassConneqt | Next-Gen Learning Platform</title>
     <style>
-        /* CSS Variables for Inecoliv-inspired Enterprise Colors */
         :root {
-            --primary-dark: #0f172a; /* Deep Navy */
-            --secondary-dark: #1e293b; /* Charcoal */
-            --accent-blue: #0ea5e9; /* Electric Blue for actions */
+            --primary-dark: #0f172a; 
+            --secondary-dark: #1e293b; 
+            --accent-blue: #0ea5e9; 
             --text-light: #f8fafc;
             --text-dark: #334155;
             --bg-light: #ffffff;
         }
 
-        /* Global Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
         a { text-decoration: none; color: inherit; }
         
-        /* Buttons */
-        .btn { padding: 10px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.3s; }
+        .btn { padding: 10px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.3s; text-align: center;}
         .btn-primary { background-color: var(--accent-blue); color: white; border: none; }
         .btn-primary:hover { background-color: #0284c7; }
         .btn-outline { background-color: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
         .btn-outline:hover { background-color: var(--accent-blue); color: white; }
 
-        /* Navigation */
         nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-blue); }
-        /* Note: Replace 'KlassConneqt' text below with an <img> tag pointing to your GitHub image path later */
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: bold; color: var(--accent-blue); }
+        .logo img { height: 40px; width: auto; } /* Pulls logo.png from your GitHub */
         .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent-blue); }
 
-        /* Hero Section */
         .hero { background-color: var(--primary-dark); color: var(--text-light); padding: 100px 5%; text-align: center; }
         .hero h1 { font-size: 3rem; margin-bottom: 20px; }
         .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px auto; color: #cbd5e1; }
-        .hero .btn { margin: 0 10px; }
-
-        /* Sections */
+        
         section { padding: 80px 5%; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; color: var(--primary-dark); }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: var(--primary-dark); }
+        .section-subtitle { text-align: center; font-size: 1.1rem; margin-bottom: 50px; color: #64748b; max-width: 700px; margin-left: auto; margin-right: auto;}
 
-        /* What We Teach - Two Columns */
         .split-section { display: flex; gap: 40px; flex-wrap: wrap; }
-        .split-card { flex: 1; min-width: 300px; background: #f1f5f9; padding: 30px; border-radius: 8px; border-top: 4px solid var(--accent-blue); }
+        .split-card { flex: 1; min-width: 300px; background: #f1f5f9; padding: 40px; border-radius: 8px; border-top: 4px solid var(--accent-blue); }
+        .split-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-dark);}
 
-        /* Course Grid */
-        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .course-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s; }
-        .course-card:hover { transform: translateY(-5px); }
-        .course-card h3 { margin-bottom: 10px; color: var(--primary-dark); }
-        .course-details { margin-bottom: 20px; font-size: 0.9rem; color: #64748b; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .course-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;}
+        .course-card h3 { margin-bottom: 10px; color: var(--primary-dark); font-size: 1.3rem;}
+        .course-desc { font-size: 0.9rem; color: #475569; margin-bottom: 15px; font-style: italic;}
+        .course-details { margin-bottom: 20px; font-size: 0.95rem; color: #334155; background: #f8fafc; padding: 15px; border-radius: 6px;}
 
-        /* Footer */
-        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
         footer h4 { color: var(--accent-blue); margin-bottom: 15px; }
         footer ul { list-style: none; }
         footer ul li { margin-bottom: 10px; }
@@ -65,81 +57,141 @@
 <body>
 
     <nav>
-        <div class="logo">KLASSCONNEQT</div>
+        <div class="logo">
+            <img src="logo.png" alt="KlassConneqt Logo">
+            KLASSCONNEQT
+        </div>
         <div class="nav-links">
             <a href="#">Home</a>
             <a href="#courses">Courses</a>
             <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
+            <a href="enroll.html" class="btn btn-primary" style="margin-left: 15px;">Enroll Now</a>
         </div>
-        <a href="#courses" class="btn btn-primary">Enroll Now</a>
     </nav>
 
     <header class="hero">
-        <h1>Powering Your Academic & Professional Future</h1>
-        <p>Expert-led courses in Sciences, Mathematics, and Professional Upskilling. Master your subjects with our next-gen learning platform.</p>
+        <h1>Master Your Subjects. Accelerate Your Career.</h1>
+        <p>Expert-led, highly practical courses tailored for 6th to 12th Std (State, CBSE, & International Boards) and professional placement preparation.</p>
         <div>
-            <a href="#courses" class="btn btn-outline">Explore Courses</a>
-            <a href="#courses" class="btn btn-primary">Enroll Now</a>
+            <a href="#courses" class="btn btn-outline" style="margin-right: 15px;">Explore Curriculum</a>
+            <a href="enroll.html" class="btn btn-primary">Enroll Now</a>
         </div>
     </header>
 
     <section>
         <h2 class="section-title">A Curriculum Built For Success</h2>
+        <p class="section-subtitle">We believe in a highly practical, interactive way of teaching. No more rote memorization—just clear concepts, real-world applications, and dedicated expert support.</p>
         <div class="split-section">
             <div class="split-card">
-                <h3>⚛️ Academic Excellence</h3>
-                <p>Master your core subjects to build a strong foundation for higher education and competitive exams.</p>
+                <h3>📚 Academic Excellence (6th - 12th Std)</h3>
+                <p>Comprehensive coaching aligned with State, CBSE, and International standard boards. We build strong foundations for board exams and future competitive tests.</p>
                 <br>
                 <ul>
-                    <li>Mathematics</li>
-                    <li>Physics & Chemistry</li>
-                    <li>Biology</li>
-                    <li>Computer Science</li>
+                    <li><strong>Mathematics:</strong> From algebra to advanced calculus.</li>
+                    <li><strong>Physics & Chemistry:</strong> Practical problem-solving and theory.</li>
+                    <li><strong>Biology:</strong> In-depth conceptual understanding.</li>
+                    <li><strong>Computer Science:</strong> Core programming and logic.</li>
                 </ul>
             </div>
             <div class="split-card">
-                <h3>💻 Professional Upskilling</h3>
-                <p>Gain industry-recognized skills to accelerate your career and clear placement interviews.</p>
+                <h3>💼 Professional Upskilling</h3>
+                <p>Fast-tracked, industry-focused training designed to help college students and graduates clear technical and aptitude rounds for placements.</p>
                 <br>
                 <ul>
-                    <li>CCNA Certification</li>
-                    <li>Aptitude for Placement</li>
-                    <li>Japanese Language</li>
+                    <li><strong>CCNA Certification:</strong> Master networking fundamentals.</li>
+                    <li><strong>Aptitude for Placement:</strong> Quantitative, logical, and verbal reasoning.</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <section id="courses" style="background-color: #f8fafc;">
-        <h2 class="section-title">Featured Courses</h2>
+        <h2 class="section-title">Our Complete Course Catalog</h2>
+        <p class="section-subtitle">Select a subject to view our practical, hands-on syllabus designed for maximum retention.</p>
+        
         <div class="course-grid">
             <div class="course-card">
-                <h3>Physics Mastery</h3>
-                <div class="course-details">
-                    <p><strong>Level:</strong> Academic</p>
-                    <p><strong>Mode:</strong> Live & Recorded</p>
-                    <p><strong>Duration:</strong> 3 Months</p>
+                <div>
+                    <h3>Mathematics Mastery</h3>
+                    <p class="course-desc">Practical problem-solving for 6th-12th standard.</p>
+                    <div class="course-details">
+                        <p><strong>Category:</strong> Academic</p>
+                        <p><strong>Duration:</strong> 1 Year</p>
+                    </div>
                 </div>
-                <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">View Details</a>
+                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
             </div>
+
             <div class="course-card">
-                <h3>CCNA Certification</h3>
-                <div class="course-details">
-                    <p><strong>Level:</strong> Professional</p>
-                    <p><strong>Mode:</strong> Live Interactive</p>
-                    <p><strong>Duration:</strong> 6 Months</p>
+                <div>
+                    <h3>Physics</h3>
+                    <p class="course-desc">Conceptual physics with real-world examples.</p>
+                    <div class="course-details">
+                        <p><strong>Category:</strong> Academic</p>
+                        <p><strong>Duration:</strong> 1 Year</p>
+                    </div>
                 </div>
-                <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">View Details</a>
+                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
             </div>
+
             <div class="course-card">
-                <h3>Japanese Language</h3>
-                <div class="course-details">
-                    <p><strong>Level:</strong> Professional</p>
-                    <p><strong>Mode:</strong> Recorded</p>
-                    <p><strong>Duration:</strong> 4 Months</p>
+                <div>
+                    <h3>Chemistry</h3>
+                    <p class="course-desc">Inorganic, organic, and physical chemistry made easy.</p>
+                    <div class="course-details">
+                        <p><strong>Category:</strong> Academic</p>
+                        <p><strong>Duration:</strong> 1 Year</p>
+                    </div>
                 </div>
-                <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">View Details</a>
+                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
+            </div>
+
+            <div class="course-card">
+                <div>
+                    <h3>Biology</h3>
+                    <p class="course-desc">Comprehensive life sciences curriculum.</p>
+                    <div class="course-details">
+                        <p><strong>Category:</strong> Academic</p>
+                        <p><strong>Duration:</strong> 1 Year</p>
+                    </div>
+                </div>
+                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
+            </div>
+
+            <div class="course-card">
+                <div>
+                    <h3>Computer Science</h3>
+                    <p class="course-desc">Foundational coding, logic, and architecture.</p>
+                    <div class="course-details">
+                        <p><strong>Category:</strong> Academic</p>
+                        <p><strong>Duration:</strong> 1 Year</p>
+                    </div>
+                </div>
+                <a href="enroll.html" class="btn btn-outline" style="width: 100%;">View Details & Enroll</a>
+            </div>
+
+            <div class="course-card" style="border-top: 4px solid var(--primary-dark);">
+                <div>
+                    <h3>CCNA Certification</h3>
+                    <p class="course-desc">Intensive networking bootcamp for IT professionals.</p>
+                    <div class="course-details">
+                        <p><strong>Category:</strong> Professional</p>
+                        <p><strong>Duration:</strong> 45 Days</p>
+                    </div>
+                </div>
+                <a href="enroll.html" class="btn btn-primary" style="width: 100%;">View Details & Enroll</a>
+            </div>
+
+            <div class="course-card" style="border-top: 4px solid var(--primary-dark);">
+                <div>
+                    <h3>Aptitude for Placement</h3>
+                    <p class="course-desc">Crack campus interviews with speed and accuracy.</p>
+                    <div class="course-details">
+                        <p><strong>Category:</strong> Professional</p>
+                        <p><strong>Duration:</strong> Fast-Track</p>
+                    </div>
+                </div>
+                <a href="enroll.html" class="btn btn-primary" style="width: 100%;">View Details & Enroll</a>
             </div>
         </div>
     </section>
@@ -147,13 +199,13 @@
     <footer>
         <div>
             <h4>KLASSCONNEQT</h4>
-            <p>Empowering Learners Worldwide.</p>
+            <p>Empowering Learners Worldwide through practical, expert-led education.</p>
         </div>
         <div>
             <h4>Quick Links</h4>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">All Courses</a></li>
+                <li><a href="enroll.html">Enroll Now</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
         </div>
