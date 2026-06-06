@@ -61,20 +61,30 @@
     </div>
 </footer>
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
-        const id = new URLSearchParams(window.location.search).get('id');
-        fetch(API_URL).then(res => res.json()).then(data => {
-            const c = data.find(x => x['Course ID'] == id);
-            document.getElementById('title').innerText = c["Course Name"];
-            document.getElementById('details').innerText = c["Full Details"];
-            window.currentCourse = c["Course Name"];
-        });
-        function addToCart() {
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get('id');
+    const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
+
+    fetch(API_URL).then(res => res.json()).then(data => {
+        // String conversion fixes the "Maths only" bug
+        const course = data.find(c => String(c['Course ID']) === String(courseId));
+        if(course) {
+            document.getElementById('title').innerText = course["Course Name"];
+            document.getElementById('details').innerText = course["Full Details"];
+            window.currentCourse = course["Course Name"];
+        }
+    });
+
+    function addToCart() {
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (cart.includes(window.currentCourse)) {
+            alert("This course is already in your cart!");
+        } else {
             cart.push(window.currentCourse);
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(window.currentCourse + " added to cart!");
         }
-    </script>
+    }
+</script>
 </body>
 </html>
