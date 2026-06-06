@@ -26,21 +26,21 @@
 
         /* Desktop Navigation */
         nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        /* UPGRADED LOGO STYLING */
+        /* UPGRADED LOGO STYLING - MEDIUM/LARGE SIZE */
         .logo { 
             display: flex; 
             align-items: center; 
-            gap: 12px; /* Pulls text slightly closer to the logo */
-            font-size: 1.6rem; /* Balances text size with the new image size */
-            font-weight: 800; /* Makes the brand name punchier */
-            color: var(--text-light); /* Changes text to white to look cleaner next to the colorful logo */
+            gap: 15px; /* Widened slightly to give the bigger image room */
+            font-size: 1.8rem; /* Bumped the text size up so it balances with the larger logo */
+            font-weight: 800; 
+            color: var(--text-light); 
         }
         .logo img { 
-            height: 60px; /* Perfect height so it breathes inside the navbar */
-            width: 60px; /* Forces a perfect square */
-            object-fit: cover; /* Keeps the image sharp */
-            border-radius: 50%; /* THE MAGIC TRICK: Cuts off the white square corners, making it a perfect circle! */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Adds a subtle drop shadow to lift it off the dark background */
+            height: 85px; /* Increased from 60px to 85px for that bold, commanding look */
+            width: 85px; /* Must match height exactly to keep it a perfect circle */
+            object-fit: cover; 
+            border-radius: 50%; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
         }
         .nav-links { display: flex; align-items: center; }
         .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
