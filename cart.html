@@ -2,70 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart | KlassConneqt</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>(function(){ emailjs.init("a-SkplDQ-6DlInywr"); })();</script>
-    <style> /* COPY CSS FROM index.html */ </style>
+    <style>
+        /* --- FULL CSS COPIED FROM INDEX.HTML TO FIX THE BROKEN LOOK --- */
+        :root {
+            --primary-dark: #0f172a; 
+            --secondary-dark: #1e293b; 
+            --accent-blue: #0ea5e9; 
+            --text-light: #f8fafc;
+            --text-dark: #334155;
+            --bg-light: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        
+        .btn { padding: 10px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.3s; text-align: center;}
+        .btn-primary { background-color: var(--accent-blue); color: white; border: none; }
+        .btn-primary:hover { background-color: #0284c7; }
+
+        /* LOGO STYLING */
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-container img { height: 85px; width: 85px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .logo-text { display: flex; flex-direction: column; justify-content: center; }
+        .logo-title { font-size: 1.8rem; font-weight: 800; color: var(--text-light); }
+        .logo-tagline { font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px; }
+
+        /* NAVIGATION */
+        nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-blue); }
+
+        /* FOOTER */
+        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 60px 5% 20px 5%; font-size: 0.95rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--text-light); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; color: #cbd5e1; }
+
+        /* CART & FORM SPECIFIC STYLING TO LOOK PROFESSIONAL */
+        .cart-container { padding: 60px 10%; min-height: 50vh; max-width: 800px; margin: auto; }
+        #cart-list { list-style: none; margin: 20px 0; }
+        #cart-list li { background: #f1f5f9; padding: 15px; margin-bottom: 10px; border-radius: 4px; border-left: 4px solid var(--accent-blue); font-weight: bold; color: var(--primary-dark); }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 4px; font-family: inherit; font-size: 1rem; }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent-blue); }
+    </style>
 </head>
 <body>
+
     <nav>
-    <div class="logo-container">
-        <img src="logo.png" alt="Logo">
-        <div class="logo-text">
-            <span class="logo-title">KLASSCONNEQT</span>
-            <span class="logo-tagline">Seamless Learning, Anytime, Anywhere.</span>
-        </div>
-    </div>
-    <div class="nav-links">
-        <a href="index.html" style="text-decoration:none;">Home</a>
-        <a href="index.html#courses" style="text-decoration:none;">Courses</a>
-        <a href="gallery.html" style="text-decoration:none;">Gallery</a>
-        <a href="cart.html" class="btn btn-primary" style="text-decoration:none;">🛒 Cart</a>
-    </div>
-</nav>
-    <div style="padding: 50px 10%; min-height: 50vh;">
-        <h2>Selected Courses</h2>
-        <ul id="cart-list" style="margin: 20px 0;"></ul>
-        <form id="enquiryForm">
-    <input type="text" id="name" placeholder="Full Name" required>
-    <input type="email" id="email" placeholder="Email Address" required>
-    <input type="text" id="phone" placeholder="WhatsApp Number" required>
-    <textarea id="message" placeholder="Optional Message"></textarea>
-    <button type="submit" class="btn btn-primary">Send Enquiry</button>
-</form>
-    </div>
-    <footer>
-    <div class="footer-container">
-        <div class="footer-col">
-            <div class="logo-container">
-                <img src="logo.png" alt="Logo">
-                <div class="logo-text">
-                    <span class="logo-title">KLASSCONNEQT</span>
-                    <span class="logo-tagline" style="color: #cbd5e1;">Seamless Learning, Anytime, Anywhere.</span>
-                </div>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo">
+            <div class="logo-text">
+                <span class="logo-title">KLASSCONNEQT</span>
+                <span class="logo-tagline">Seamless Learning, Anytime, Anywhere.</span>
             </div>
         </div>
-        <div class="footer-col"><h4>Academic</h4><ul><li>Maths</li><li>Physics</li><li>Biology</li></ul></div>
-        <div class="footer-col"><h4>Professional</h4><ul><li>CCNA</li><li>Aptitude</li><li>Japanese</li></ul></div>
-        <div class="footer-col"><h4>Contact Us</h4><ul><li>📍 Salem, Tamilnadu, India</li><li>✉️ klassconnect.edu@gmail.com</li><li>📞 +91-8807606980</li></ul></div>
+        <div class="nav-links">
+            <a href="index.html" style="text-decoration:none;">Home</a>
+            <a href="index.html#courses" style="text-decoration:none;">Courses</a>
+            <a href="gallery.html" style="text-decoration:none;">Gallery</a>
+            <a href="cart.html" class="btn btn-primary" style="text-decoration:none;">🛒 Cart</a>
+        </div>
+    </nav>
+
+    <div class="cart-container">
+        <h2 style="color: var(--primary-dark); margin-bottom: 10px;">Selected Courses</h2>
+        <p style="color: #64748b;">Review your selected courses and fill out the form below to send an enquiry.</p>
+        
+        <ul id="cart-list"></ul>
+        
+        <form id="enquiryForm" style="margin-top: 30px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+            <h3 style="margin-bottom: 20px; color: var(--primary-dark);">Student Details</h3>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="text" id="phone" placeholder="WhatsApp Number" required>
+            <textarea id="message" placeholder="Optional Message (Any specific questions?)" rows="4"></textarea>
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 12px;">Send Enquiry</button>
+        </form>
     </div>
-</footer>
-   <script>
-    document.getElementById('enquiryForm').onsubmit = (e) => {
-        e.preventDefault();
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo-container">
+                    <img src="logo.png" alt="Logo">
+                    <div class="logo-text">
+                        <span class="logo-title">KLASSCONNEQT</span>
+                        <span class="logo-tagline" style="color: #cbd5e1;">Seamless Learning, Anytime, Anywhere.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Academic</h4>
+                <ul><li>Maths</li><li>Physics</li><li>Biology</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Professional</h4>
+                <ul><li>CCNA</li><li>Aptitude</li><li>Japanese</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 Salem, Tamilnadu, India</li>
+                    <li>✉️ klassconnect.edu@gmail.com</li>
+                    <li>📞 +91-8807606980</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load the items from the cart and display them on the page
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        emailjs.send("service_zn289y8", "template_g6ozwsm", {
-            course_name: cart.join(', '),
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            message: document.getElementById('message').value
-        }).then(() => { 
-            alert("Enquiry Sent Successfully!"); 
-            localStorage.clear(); 
-            window.location.href='index.html'; 
-        });
-    };
-</script>
+        const cartList = document.getElementById('cart-list');
+        
+        if (cart.length === 0) {
+            cartList.innerHTML = '<li style="border-left: 4px solid #ef4444;">Your cart is currently empty. Please select a course from the Home page.</li>';
+        } else {
+            cartList.innerHTML = cart.map(c => `<li>${c}</li>`).join('');
+        }
+
+        // Handle the email submission
+        document.getElementById('enquiryForm').onsubmit = (e) => {
+            e.preventDefault();
+            
+            if (cart.length === 0) {
+                alert("Please add a course to your cart before submitting an enquiry.");
+                return;
+            }
+
+            emailjs.send("service_zn289y8", "template_g6ozwsm", {
+                course_name: cart.join(', '),
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value
+            }).then(() => { 
+                alert("Enquiry Sent Successfully! We will contact you soon."); 
+                localStorage.clear(); 
+                window.location.href='index.html'; 
+            }).catch((error) => {
+                alert("Failed to send enquiry. Please check your internet connection and try again.");
+                console.error(error);
+            });
+        };
+    </script>
 </body>
 </html>
