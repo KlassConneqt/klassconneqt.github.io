@@ -27,11 +27,12 @@
         <h2>Selected Courses</h2>
         <ul id="cart-list" style="margin: 20px 0;"></ul>
         <form id="enquiryForm">
-            <input type="text" id="name" placeholder="Name" required style="width:100%; padding:10px; margin-bottom:10px;">
-            <input type="email" id="email" placeholder="Email" required style="width:100%; padding:10px; margin-bottom:10px;">
-            <input type="text" id="phone" placeholder="Phone" required style="width:100%; padding:10px; margin-bottom:10px;">
-            <button type="submit" class="btn btn-primary">Send Enquiry</button>
-        </form>
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email Address" required>
+    <input type="text" id="phone" placeholder="WhatsApp Number" required>
+    <textarea id="message" placeholder="Optional Message"></textarea>
+    <button type="submit" class="btn btn-primary">Send Enquiry</button>
+</form>
     </div>
     <footer>
     <div class="footer-container">
@@ -49,18 +50,22 @@
         <div class="footer-col"><h4>Contact Us</h4><ul><li>📍 Salem, Tamilnadu, India</li><li>✉️ klassconnect.edu@gmail.com</li><li>📞 +91-8807606980</li></ul></div>
     </div>
 </footer>
-    <script>
+   <script>
+    document.getElementById('enquiryForm').onsubmit = (e) => {
+        e.preventDefault();
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        document.getElementById('cart-list').innerHTML = cart.map(c => `<li>${c}</li>`).join('');
-        document.getElementById('enquiryForm').onsubmit = (e) => {
-            e.preventDefault();
-            emailjs.send("service_zn289y8", "template_g6ozwsm", {
-                course_name: cart.join(', '),
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value
-            }).then(() => { alert("Enquiry Sent!"); localStorage.clear(); window.location.href='index.html'; });
-        };
-    </script>
+        emailjs.send("service_zn289y8", "template_g6ozwsm", {
+            course_name: cart.join(', '),
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            message: document.getElementById('message').value
+        }).then(() => { 
+            alert("Enquiry Sent Successfully!"); 
+            localStorage.clear(); 
+            window.location.href='index.html'; 
+        });
+    };
+</script>
 </body>
 </html>
