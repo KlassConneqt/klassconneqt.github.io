@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Cart | KlassConneqt</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>(function(){ emailjs.init("a-SkplDQ-6DlInywr"); })();</script>
     <style> /* COPY CSS FROM index.html */ </style>
 </head>
 <body>
     <nav> </nav>
-    <div style="padding: 50px 10%;">
-        <h2>Cart Items</h2>
-        <ul id="cart-list"></ul>
+    <div style="padding: 50px 10%; min-height: 50vh;">
+        <h2>Selected Courses</h2>
+        <ul id="cart-list" style="margin: 20px 0;"></ul>
         <form id="enquiryForm">
-            <input type="text" id="name" placeholder="Name" required><br>
-            <input type="email" id="email" placeholder="Email" required><br>
-            <input type="text" id="phone" placeholder="Phone" required><br>
+            <input type="text" id="name" placeholder="Name" required style="width:100%; padding:10px; margin-bottom:10px;">
+            <input type="email" id="email" placeholder="Email" required style="width:100%; padding:10px; margin-bottom:10px;">
+            <input type="text" id="phone" placeholder="Phone" required style="width:100%; padding:10px; margin-bottom:10px;">
             <button type="submit" class="btn btn-primary">Send Enquiry</button>
         </form>
     </div>
