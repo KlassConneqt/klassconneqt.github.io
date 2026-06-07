@@ -41,6 +41,46 @@
         .modal-icon { font-size: 3.5rem; margin-bottom: 15px; }
         .modal-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    /* --- MOBILE RESPONSIVENESS FIX --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+                text-align: center;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .logo-container img {
+                height: 60px;
+                width: 60px;
+            }
+            .logo-title {
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+            }
+            .nav-links a {
+                margin: 5px;
+                font-size: 0.95rem;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.95rem !important;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .cart-header h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
