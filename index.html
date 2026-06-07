@@ -293,11 +293,27 @@
 
         async function loadCourses() {
             try {
+                // 1. Check if we already have the data saved in the browser
+                const cachedData = sessionStorage.getItem('klassCourses');
+                if (cachedData) {
+                    allCourses = JSON.parse(cachedData);
+                    filteredCourses = allCourses; 
+                    displayCourses();
+                    return; // Stop here, no need to wait for Google!
+                }
+
+                // 2. If no saved data, fetch from Google Sheets
                 const response = await fetch(API_URL);
                 allCourses = await response.json();
+                
+                // 3. Save the data to the browser so the next load is instant
+                sessionStorage.setItem('klassCourses', JSON.stringify(allCourses));
+
                 filteredCourses = allCourses; 
                 displayCourses();
-            } catch (error) { document.getElementById('course-container').innerHTML = 'Failed to load.'; }
+            } catch (error) { 
+                document.getElementById('course-container').innerHTML = 'Failed to load.'; 
+            }
         }
 
         function filterCategory(keyword) {
