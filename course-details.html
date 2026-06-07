@@ -1,210 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Details | KlassConneqt</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <style>
-        /* --- ALL CSS STYLING --- */
-        :root { --primary-dark: #0f172a; --secondary-dark: #1e293b; --accent-blue: #0ea5e9; --text-light: #f8fafc; --text-dark: #334155; --bg-light: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
-        a { text-decoration: none; color: inherit; }
-        
-        .btn { padding: 10px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.3s; text-align: center;}
-        .btn-primary { background-color: var(--accent-blue); color: white; border: none; }
-        .btn-primary:hover { background-color: #0284c7; }
-        .btn-outline { background-color: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
-        .btn-outline:hover { background-color: var(--accent-blue); color: white; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details | KlassConneqt</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        /* --- ALL CSS STYLING --- */
+        :root { --primary-dark: #0f172a; --secondary-dark: #1e293b; --accent-blue: #0ea5e9; --text-light: #f8fafc; --text-dark: #334155; --bg-light: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        
+        .btn { padding: 10px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.3s; text-align: center;}
+        .btn-primary { background-color: var(--accent-blue); color: white; border: none; }
+        .btn-primary:hover { background-color: #0284c7; }
+        .btn-outline { background-color: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
+        .btn-outline:hover { background-color: var(--accent-blue); color: white; }
 
-        .logo-container { display: flex; align-items: center; gap: 15px; }
-        .logo-container img { height: 85px; width: 85px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .logo-text { display: flex; flex-direction: column; justify-content: center; }
-        .logo-title { font-size: 1.8rem; font-weight: 800; color: var(--text-light); }
-        .logo-tagline { font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px; }
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-container img { height: 85px; width: 85px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .logo-text { display: flex; flex-direction: column; justify-content: center; }
+        .logo-title { font-size: 1.8rem; font-weight: 800; color: var(--text-light); }
+        .logo-tagline { font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px; }
 
-        nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
-        .nav-links a:hover { color: var(--accent-blue); }
+        nav { background-color: var(--primary-dark); color: var(--text-light); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-blue); }
 
-        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 60px 5% 20px 5%; font-size: 0.95rem; }
-        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 40px; }
-        .footer-col h4 { color: var(--text-light); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col ul li { margin-bottom: 12px; color: #cbd5e1; }
+        footer { background-color: var(--secondary-dark); color: var(--text-light); padding: 60px 5% 20px 5%; font-size: 0.95rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--text-light); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; color: #cbd5e1; }
 
-        /* --- CUSTOM POPUP MODAL STYLING --- */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
-        .modal-box { background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: popIn 0.3s ease-out; }
-        .modal-icon { font-size: 3.5rem; margin-bottom: 15px; }
-        .modal-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
-        /* --- MOBILE RESPONSIVENESS FIX --- */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 15px 5%; text-align: center; }
-            .logo-container { flex-direction: column; gap: 5px; }
-            .logo-container img { height: 60px; width: 60px; }
-            .logo-title { font-size: 1.5rem; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
-            .nav-links a { margin: 5px; font-size: 0.95rem; }
-            .btn { padding: 8px 16px; font-size: 0.95rem !important; }
-            .hero h1 { font-size: 2rem; }
-            .cart-header h1 { font-size: 2rem; }
-        }
-
-        /* --- NEW: TESTIMONIAL SLIDER STYLES --- */
-        .testimonial-section { background-color: #f8fafc; border-radius: 16px; border: 1px solid #e2e8f0; padding: 30px; }
-        .testimonial-section h2 { color: var(--primary-dark); margin-bottom: 20px; text-align: center; }
-        .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 15px; scrollbar-width: none; }
-        .slider-container::-webkit-scrollbar { display: none; }
-        .testimonial-card { flex: 0 0 320px; scroll-snap-align: start; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; flex-direction: column; }
-        .testimonial-media { width: 100%; height: 200px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; background-color: #0f172a; }
-        .testimonial-media iframe, .testimonial-media img { width: 100%; height: 100%; object-fit: cover; border: none; }
-        .testimonial-text { font-style: italic; color: #475569; flex-grow: 1; margin-bottom: 15px; font-size: 0.95rem; }
-        .testimonial-author { font-weight: bold; color: var(--accent-blue); display: flex; align-items: center; gap: 10px; }
-    </style>
+        /* --- CUSTOM POPUP MODAL STYLING --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .modal-box { background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: popIn 0.3s ease-out; }
+        .modal-icon { font-size: 3.5rem; margin-bottom: 15px; }
+        .modal-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    /* --- MOBILE RESPONSIVENESS FIX --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+                text-align: center;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .logo-container img {
+                height: 60px;
+                width: 60px;
+            }
+            .logo-title {
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+            }
+            .nav-links a {
+                margin: 5px;
+                font-size: 0.95rem;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.95rem !important;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .cart-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo">
-            <div class="logo-text">
-                <span class="logo-title">KLASSCONNEQT</span>
-                <span class="logo-tagline">Seamless Learning, Anytime, Anywhere.</span>
-            </div>
-        </div>
-        <div class="nav-links">
-            <a href="index.html" style="text-decoration:none;">Home</a>
-            <a href="index.html#courses" style="text-decoration:none;">Courses</a>
-            <a href="gallery.html" style="text-decoration:none;">Gallery</a>
-            <a href="cart.html" class="btn btn-primary" style="text-decoration:none;">🛒 Cart</a>
-        </div>
-    </nav>
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo">
+            <div class="logo-text">
+                <span class="logo-title">KLASSCONNEQT</span>
+                <span class="logo-tagline">Seamless Learning, Anytime, Anywhere.</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" style="text-decoration:none;">Home</a>
+            <a href="index.html#courses" style="text-decoration:none;">Courses</a>
+            <a href="gallery.html" style="text-decoration:none;">Gallery</a>
+            <a href="cart.html" class="btn btn-primary" style="text-decoration:none;">🛒 Cart</a>
+        </div>
+    </nav>
 
-    <div style="padding: 60px 10%; min-height: 50vh; max-width: 900px; margin: auto;">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px;">
-            <h1 id="title" style="color: var(--primary-dark); font-size: 2.5rem; margin: 0;">Loading Course...</h1>
-            <h2 id="course-price" style="color: var(--accent-blue); margin: 0; background: #f0f9ff; padding: 10px 20px; border-radius: 6px; display: none;"></h2>
-        </div>
-        
-        <div id="details" style="margin: 30px 0; font-size: 1.1rem;"></div>
-        
-        <button class="btn btn-primary" onclick="addToCart()" style="font-size: 1.1rem; padding: 12px 30px; width: 100%; max-width: 300px; margin-top: 20px;">Book Demo Session</button>
-    </div>
+    <div style="padding: 60px 10%; min-height: 50vh; max-width: 900px; margin: auto;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px;">
+            <h1 id="title" style="color: var(--primary-dark); font-size: 2.5rem; margin: 0;">Loading Course...</h1>
+            <h2 id="course-price" style="color: var(--accent-blue); margin: 0; background: #f0f9ff; padding: 10px 20px; border-radius: 6px; display: none;"></h2>
+        </div>
+        
+        <div id="details" style="margin: 30px 0; font-size: 1.1rem;"></div>
+        
+        <button class="btn btn-primary" onclick="addToCart()" style="font-size: 1.1rem; padding: 12px 30px; width: 100%; max-width: 300px; margin-top: 20px;">Book Demo Session</button>
+    </div>
 
-    <div id="testimonial-block" style="display: none; max-width: 900px; margin: 0 auto 60px auto; padding: 0 10%;">
-        <div class="testimonial-section">
-            <h2>🗣️ What Our Students Say</h2>
-            <div class="slider-container" id="testimonial-slider">
-                </div>
-        </div>
-    </div>
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-box">
+            <div class="modal-icon" id="modal-icon">✅</div>
+            <h2 id="modal-title" style="color: var(--primary-dark); margin-bottom: 10px;">Demo Session Selected!</h2>
+            <p id="modal-msg" style="color: #64748b; margin-bottom: 10px; line-height: 1.5;">Your course has been added. Kindly proceed to the cart to submit your details and book your session.</p>
+            <div class="modal-buttons">
+                <button onclick="closeModal()" class="btn btn-outline" style="flex: 1; padding: 12px;">Continue Browsing</button>
+                <a href="cart.html" class="btn btn-primary" style="flex: 1; padding: 12px; display: flex; align-items: center; justify-content: center;">Go to Cart</a>
+            </div>
+        </div>
+    </div>
 
-    <div class="modal-overlay" id="cartModal">
-        <div class="modal-box">
-            <div class="modal-icon" id="modal-icon">✅</div>
-            <h2 id="modal-title" style="color: var(--primary-dark); margin-bottom: 10px;">Demo Session Selected!</h2>
-            <p id="modal-msg" style="color: #64748b; margin-bottom: 10px; line-height: 1.5;">Your course has been added. Kindly proceed to the cart to submit your details and book your session.</p>
-            <div class="modal-buttons">
-                <button onclick="closeModal()" class="btn btn-outline" style="flex: 1; padding: 12px;">Continue Browsing</button>
-                <a href="cart.html" class="btn btn-primary" style="flex: 1; padding: 12px; display: flex; align-items: center; justify-content: center;">Go to Cart</a>
-            </div>
-        </div>
-    </div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo-container">
+                    <img src="logo.png" alt="Logo">
+                    <div class="logo-text">
+                        <span class="logo-title">KLASSCONNEQT</span>
+                        <span class="logo-tagline" style="color: #cbd5e1;">Seamless Learning, Anytime, Anywhere.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Academic</h4>
+                <ul><li>Mathematics Mastery</li><li>Physics & Chemistry</li><li>Biology</li><li>Computer Science</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Professional</h4>
+                <ul><li>CCNA Certification</li><li>Aptitude for Placement</li><li>Language Hub</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 Salem, Tamilnadu, India</li>
+                    <li>✉️ klassconnect.edu@gmail.com</li>
+                    <li>📞 +91-8807606980</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <div class="logo-container">
-                    <img src="logo.png" alt="Logo">
-                    <div class="logo-text">
-                        <span class="logo-title">KLASSCONNEQT</span>
-                        <span class="logo-tagline" style="color: #cbd5e1;">Seamless Learning, Anytime, Anywhere.</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Academic</h4>
-                <ul><li>Mathematics Mastery</li><li>Physics & Chemistry</li><li>Biology</li><li>Computer Science</li></ul>
-            </div>
-            <div class="footer-col">
-                <h4>Professional</h4>
-                <ul><li>CCNA Certification</li><li>Aptitude for Placement</li><li>Language Hub</li></ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <ul>
-                    <li>📍 Salem, Tamilnadu, India</li>
-                    <li>✉️ klassconnect.edu@gmail.com</li>
-                    <li>📞 +91-8807606980</li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    <script>
+        const id = new URLSearchParams(window.location.search).get('id');
+        
+        fetch("https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec")
+            .then(res => res.json()).then(data => {
+            
+            const course = data.find(c => String(c['Course ID']) === String(id));
+            
+            if(course) {
+                document.getElementById('title').innerText = course["Course Name"];
+                document.getElementById('details').innerHTML = course["Full Details"]; 
+                window.currentCourse = course["Course Name"];
 
-    <script>
-        const id = new URLSearchParams(window.location.search).get('id');
-        const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
+                const priceEl = document.getElementById('course-price');
+                if (course["Price"] && course["Price"].toString().trim() !== "") {
+                    priceEl.innerText = "Fee: " + course["Price"];
+                    priceEl.style.display = "block";
+                }
 
-        fetch(API_URL)
-            .then(res => res.json())
-            .then(data => {
-                // 1. Get the list of courses safely
-                const courseList = data.courses || [];
-                // 2. Find the course
-                const course = courseList.find(c => String(c['Course ID']) === String(id));
-                
-                if(course) {
-                    // Display Data
-                    document.getElementById('title').innerText = course["Course Name"] || "Untitled Course";
-                    document.getElementById('details').innerHTML = course["Full Details"] || "No details provided.";
-                    window.currentCourse = course["Course Name"];
+            } else {
+                document.getElementById('title').innerText = "Course Not Found";
+                document.getElementById('details').innerHTML = "<p>Please click a course from the home page.</p>";
+            }
+        });
 
-                    const priceEl = document.getElementById('course-price');
-                    if (course["Price"] && course["Price"].toString().trim() !== "") {
-                        priceEl.innerText = "Fee: " + course["Price"];
-                        priceEl.style.display = "block";
-                    }
+        // Add to Cart with Custom Pop-Up Logic
+        function addToCart() {
+            if(!window.currentCourse) return;
+            
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const modalIcon = document.getElementById('modal-icon');
+            const modalTitle = document.getElementById('modal-title');
+            const modalMsg = document.getElementById('modal-msg');
 
-                    // 3. Testimonials (Safe Check)
-                    const testimonialList = data.testimonials || [];
-                    const courseTestimonials = testimonialList.filter(t => String(t['Course ID']) === String(id));
-                    const slider = document.getElementById('testimonial-slider');
-                    const testimonialBlock = document.getElementById('testimonial-block');
+            if(cart.includes(window.currentCourse)) { 
+                modalIcon.innerText = "⚠️";
+                modalTitle.innerText = "Session Already Selected!";
+                modalMsg.innerText = "This course is already in your demo cart. Please proceed to the cart to submit your enquiry.";
+            } else { 
+                cart.push(window.currentCourse); 
+                localStorage.setItem('cart', JSON.stringify(cart)); 
+                modalIcon.innerText = "✅";
+                modalTitle.innerText = "Demo Session Selected!";
+                modalMsg.innerText = "Your course has been added. Kindly proceed to the cart to submit your details and book your session.";
+            }
+            
+            // Show the custom modal
+            document.getElementById('cartModal').style.display = 'flex';
+        }
 
-                    if (courseTestimonials.length > 0) {
-                        testimonialBlock.style.display = 'block';
-                        slider.innerHTML = ""; 
-                        courseTestimonials.forEach(t => {
-                            let mediaHTML = t.Type && t.Type.toLowerCase().trim() === 'video' 
-                                ? `<iframe src="${t.Media}" allowfullscreen></iframe>` 
-                                : `<img src="${t.Media}" alt="Student Photo">`;
-                            
-                            let profilePicHTML = t['Profile Pic'] && t['Profile Pic'].trim() !== "" 
-                                ? `<img src="${t['Profile Pic']}" style="width:30px; height:30px; border-radius:50%; object-fit:cover;">` 
-                                : '🎓';
-
-                            slider.innerHTML += `<div class="testimonial-card"><div class="testimonial-media">${mediaHTML}</div><div class="testimonial-text">"${t.Feedback}"</div><div class="testimonial-author">${profilePicHTML} ${t.Name}</div></div>`;
-                        });
-                    }
-                } else {
-                    // Graceful exit if ID doesn't exist
-                    document.getElementById('title').innerText = "Course Not Found";
-                    document.getElementById('details').innerHTML = "<p>The course ID " + id + " does not exist in the database.</p>";
-                }
-            })
-            .catch(err => {
-                console.error("Critical Error:", err);
-                document.getElementById('title').innerText = "Connection Error";
-            });
-
-        function addToCart() { /* ... unchanged ... */ }
-        function closeModal() { document.getElementById('cartModal').style.display = 'none'; }
-    </script>
+        // Close the modal
+        function closeModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
