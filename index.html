@@ -40,8 +40,15 @@
         .nav-links a { margin: 0 15px; color: var(--text-light); transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent-blue); }
 
-        .hero { background-color: var(--primary-dark); color: var(--text-light); padding: 100px 5%; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+/* UPGRADED HERO WITH ENTERPRISE IMAGE BACKGROUND */
+.hero { 
+    background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), 
+                url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1920&q=80') center/cover fixed; 
+    color: var(--text-light); 
+    padding: 120px 5%; 
+    text-align: center; 
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+}        .hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
         .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px auto; color: #cbd5e1; }
         .hero-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         
@@ -50,7 +57,19 @@
         .section-subtitle { text-align: center; font-size: 1.1rem; margin-bottom: 50px; color: #64748b; max-width: 700px; margin-left: auto; margin-right: auto;}
 
         .split-section { display: flex; gap: 40px; flex-wrap: wrap; }
-        .split-card { flex: 1; min-width: 300px; background: #f1f5f9; padding: 40px; border-radius: 8px; border-top: 4px solid var(--accent-blue); }
+        /* UPGRADED SPLIT CARDS WITH SUBTLE WATERMARK IMAGES */
+.split-card { 
+    flex: 1; 
+    min-width: 300px; 
+    background: linear-gradient(rgba(241, 245, 249, 0.92), rgba(241, 245, 249, 0.98)), 
+                url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80') right/cover; 
+    padding: 40px; 
+    border-radius: 8px; 
+    border-top: 4px solid var(--accent-blue); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+.split-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         .split-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-dark);}
         .split-card ul { margin-left: 20px; }
         .split-card ul li { margin-bottom: 10px; }
