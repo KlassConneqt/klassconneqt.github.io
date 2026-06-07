@@ -79,13 +79,18 @@
         .split-card ul { margin-left: 20px; }
         .split-card ul li { margin-bottom: 10px; }
 
-.course-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-            align-items: stretch; /* Forces cards in the same row to be equal height */
-        }        
-        /* UPGRADED INECOLIV-STYLE IMAGE CARDS */
+/* PERMANENT GRID FIX: 4 cards on desktop */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) { .course-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) { .course-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .course-grid { grid-template-columns: repeat(1, 1fr); } }        /* UPGRADED INECOLIV-STYLE IMAGE CARDS */
         .course-card {
             background: white;
             border-radius: 16px;
@@ -100,16 +105,17 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
+        /* PERMANENT IMAGE FIX */
         .card-img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    object-position: center center;
-    display: block;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    border-bottom: 3px solid var(--accent-blue);
-}
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            border-bottom: 3px solid var(--accent-blue);
+        }
         .card-content {
             padding: 25px;
             display: flex;
