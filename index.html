@@ -57,19 +57,24 @@
         .section-subtitle { text-align: center; font-size: 1.1rem; margin-bottom: 50px; color: #64748b; max-width: 700px; margin-left: auto; margin-right: auto;}
 
         .split-section { display: flex; gap: 40px; flex-wrap: wrap; }
-        /* UPGRADED SPLIT CARDS WITH SUBTLE WATERMARK IMAGES */
+/* CLEAN PREMIUM SPLIT CARDS (NO WATERMARK) */
 .split-card { 
     flex: 1; 
     min-width: 300px; 
-    background: linear-gradient(rgba(241, 245, 249, 0.92), rgba(241, 245, 249, 0.98)), 
-                url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80') right/cover; 
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); 
     padding: 40px; 
-    border-radius: 8px; 
-    border-top: 4px solid var(--accent-blue); 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
+    border-radius: 12px; 
+    border-top: 5px solid var(--accent-blue); 
+    border-left: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
-.split-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+.split-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+}.split-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         .split-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-dark);}
         .split-card ul { margin-left: 20px; }
         .split-card ul li { margin-bottom: 10px; }
