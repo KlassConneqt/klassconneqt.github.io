@@ -152,26 +152,19 @@
         const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
 
         fetch(API_URL)
-            .then(res => {
-                if (!res.ok) throw new Error("API Connection Failed");
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
-                console.log("Data received:", data); // Check your Browser Console (F12) to see this
-                
-                // If your script returns data directly as an array, use:
-                // const courseList = Array.isArray(data) ? data : data.courses;
-                
-                // Based on your latest Apps Script, use this:
-                const courseList = data.courses; 
+                // AUTO-FIX: Check if data is an object with 'courses', or just an array
+                const courseList = data.courses ? data.courses : (Array.isArray(data) ? data : []);
+                const testimonialList = data.testimonials ? data.testimonials : [];
+
                 const course = courseList.find(c => String(c['Course ID']) === String(id));
                 
                 if(course) {
                     document.getElementById('title').innerText = course["Course Name"];
-                    document.getElementById('details').innerHTML = course["Full Details"]; 
+                    document.getElementById('details').innerHTML = course["Full Details"] || "No details available.";
                     window.currentCourse = course["Course Name"];
-                    
-                    // ... (rest of the display logic)
+
                     const priceEl = document.getElementById('course-price');
                     if (course["Price"] && course["Price"].toString().trim() !== "") {
                         priceEl.innerText = "Fee: " + course["Price"];
@@ -179,16 +172,23 @@
                     }
 
                     // Testimonial Logic
-                    const courseTestimonials = data.testimonials.filter(t => String(t['Course ID']) === String(id));
+                    const courseTestimonials = testimonialList.filter(t => String(t['Course ID']) === String(id));
                     const slider = document.getElementById('testimonial-slider');
                     const testimonialBlock = document.getElementById('testimonial-block');
-                    if (courseTestimonials && courseTestimonials.length > 0) {
+
+                    if (courseTestimonials.length > 0) {
                         testimonialBlock.style.display = 'block';
+                        slider.innerHTML = ""; // Clear existing
                         courseTestimonials.forEach(t => {
                             let mediaHTML = t.Type && t.Type.toLowerCase().trim() === 'video' 
                                 ? `<iframe src="${t.Media}" allowfullscreen></iframe>` 
                                 : `<img src="${t.Media}" alt="Student Photo">`;
-                            slider.innerHTML += `<div class="testimonial-card"><div class="testimonial-media">${mediaHTML}</div><div class="testimonial-text">"${t.Feedback}"</div><div class="testimonial-author">${t.Name}</div></div>`;
+                            
+                            let profilePicHTML = t['Profile Pic'] && t['Profile Pic'].trim() !== "" 
+                                ? `<img src="${t['Profile Pic']}" style="width:30px; height:30px; border-radius:50%; object-fit:cover;">` 
+                                : '🎓';
+
+                            slider.innerHTML += `<div class="testimonial-card"><div class="testimonial-media">${mediaHTML}</div><div class="testimonial-text">"${t.Feedback}"</div><div class="testimonial-author">${profilePicHTML} ${t.Name}</div></div>`;
                         });
                     }
                 } else {
@@ -196,8 +196,8 @@
                 }
             })
             .catch(err => {
-                console.error(err);
-                document.getElementById('title').innerText = "Error: " + err.message;
+                console.error("Fetch Error:", err);
+                document.getElementById('title').innerText = "Error Loading Content";
             });
 
         function addToCart() { /* ... unchanged ... */ }
