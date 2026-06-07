@@ -213,24 +213,26 @@
         <div class="split-section">
             <div class="split-card">
                 <h3>📚 Academic Excellence</h3>
-                <ul>
-                    <li><strong>Mathematics:</strong> From algebra to advanced calculus.</li>
-                    <li><strong>Physics & Chemistry:</strong> Practical problem-solving and theory.</li>
-                    <li><strong>Biology:</strong> In-depth conceptual understanding.</li>
-                    <li><strong>Computer Science:</strong> Core programming and logic.</li>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="cursor:pointer; padding: 5px 0; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='inherit'" onclick="filterCategory('Mathematics')">📘 <strong>Mathematics:</strong> From algebra to advanced calculus.</li>
+                    <li style="cursor:pointer; padding: 5px 0; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='inherit'" onclick="filterCategory('Physics')">🧪 <strong>Physics & Chemistry:</strong> Practical problem-solving and theory.</li>
+                    <li style="cursor:pointer; padding: 5px 0; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='inherit'" onclick="filterCategory('Biology')">🧬 <strong>Biology:</strong> In-depth conceptual understanding.</li>
+                    <li style="cursor:pointer; padding: 5px 0; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='inherit'" onclick="filterCategory('Computer Science')">💻 <strong>Computer Science:</strong> Core programming and logic.</li>
                 </ul>
             </div>
             <div class="split-card">
                 <h3>💼 Professional & Language Hub</h3>
-                <ul>
-                    <li><strong>CCNA Certification:</strong> Master networking fundamentals.</li>
-                    <li><strong>Aptitude for Placement:</strong> Crack campus interviews.</li>
-                    <li><strong>Language Hub:</strong> Spoken English, Tamil, and Japanese.</li>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="cursor:pointer; padding: 5px 0; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='inherit'" onclick="filterCategory('CCNA')">🌐 <strong>CCNA Certification:</strong> Master networking fundamentals.</li>
+                    <li style="cursor:pointer; padding: 5px 0; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='inherit'" onclick="filterCategory('Aptitude')">🎯 <strong>Aptitude for Placement:</strong> Crack campus interviews.</li>
+                    <li style="cursor:pointer; padding: 5px 0; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='inherit'" onclick="filterCategory('Language')">🗣️ <strong>Language Hub:</strong> Spoken English, Tamil, and Japanese.</li>
                 </ul>
             </div>
         </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn btn-outline" id="clearFilterBtn" style="display:none; width: 250px;" onclick="clearFilter()">🔄 Show All Courses</button>
+        </div>
     </section>
-
     <section id="courses" style="background-color: #f8fafc;">
         <h2 class="section-title">Our Complete Course Catalog</h2>
         <div class="course-grid" id="course-container">
@@ -283,6 +285,7 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
         let allCourses = [];
+        let filteredCourses = []; 
         let currentPage = 1;
         const coursesPerPage = 8; 
 
@@ -290,17 +293,43 @@
             try {
                 const response = await fetch(API_URL);
                 allCourses = await response.json();
+                filteredCourses = allCourses; 
                 displayCourses();
             } catch (error) { document.getElementById('course-container').innerHTML = 'Failed to load.'; }
+        }
+
+        function filterCategory(keyword) {
+            filteredCourses = allCourses.filter(c => 
+                (c["Course Name"] && c["Course Name"].toLowerCase().includes(keyword.toLowerCase())) || 
+                (c["Category"] && c["Category"].toLowerCase().includes(keyword.toLowerCase()))
+            );
+            
+            currentPage = 1; 
+            displayCourses();
+            document.getElementById('clearFilterBtn').style.display = 'inline-block';
+            document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function clearFilter() {
+            filteredCourses = allCourses;
+            currentPage = 1;
+            displayCourses();
+            document.getElementById('clearFilterBtn').style.display = 'none';
         }
 
         function displayCourses() {
             const container = document.getElementById('course-container');
             container.innerHTML = '';
-            const paginated = allCourses.slice((currentPage - 1) * coursesPerPage, currentPage * coursesPerPage);
             
+            const paginated = filteredCourses.slice((currentPage - 1) * coursesPerPage, currentPage * coursesPerPage);
+            
+            if (paginated.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #64748b; font-size: 1.2rem;">No courses found for this selection.</p>';
+                document.getElementById('pagination-controls').innerHTML = '';
+                return;
+            }
+
             paginated.forEach(c => {
-                // Check if Image URL exists in the sheet, otherwise use a sleek fallback block
                 let imageStr = (c["Image URL"] && c["Image URL"].trim() !== "") 
                     ? `<img src="${c['Image URL']}" class="card-img" alt="Course Image">` 
                     : `<div class="card-img" style="background: var(--secondary-dark); display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem; font-weight:bold;">KlassConneqt</div>`;
@@ -322,7 +351,11 @@
         function setupPagination() {
             const controls = document.getElementById('pagination-controls');
             controls.innerHTML = '';
-            for (let i = 1; i <= Math.ceil(allCourses.length / coursesPerPage); i++) {
+            
+            const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
+            if (totalPages <= 1) return; 
+
+            for (let i = 1; i <= totalPages; i++) {
                 const btn = document.createElement('button');
                 btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
                 btn.innerText = i;
@@ -330,6 +363,7 @@
                 controls.appendChild(btn);
             }
         }
+        
         document.addEventListener('DOMContentLoaded', loadCourses);
     </script>
 </body>
