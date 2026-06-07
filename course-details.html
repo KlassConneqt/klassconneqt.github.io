@@ -161,8 +161,8 @@
         fetch("https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec")
             .then(res => res.json()).then(data => {
             
-            const course = data.find(c => String(c['Course ID']) === String(id));
-            
+// This safely handles both your old data format and the new two-sheet format
+            const course = (data.courses || data).find(c => String(c['Course ID']) === String(id));            
             if(course) {
                 document.getElementById('title').innerText = course["Course Name"];
                 document.getElementById('details').innerHTML = course["Full Details"]; 
