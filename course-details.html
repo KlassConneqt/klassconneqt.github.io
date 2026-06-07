@@ -154,15 +154,15 @@
         fetch(API_URL)
             .then(res => res.json())
             .then(data => {
-                // AUTO-FIX: Check if data is an object with 'courses', or just an array
-                const courseList = data.courses ? data.courses : (Array.isArray(data) ? data : []);
-                const testimonialList = data.testimonials ? data.testimonials : [];
-
+                // 1. Get the list of courses safely
+                const courseList = data.courses || [];
+                // 2. Find the course
                 const course = courseList.find(c => String(c['Course ID']) === String(id));
                 
                 if(course) {
-                    document.getElementById('title').innerText = course["Course Name"];
-                    document.getElementById('details').innerHTML = course["Full Details"] || "No details available.";
+                    // Display Data
+                    document.getElementById('title').innerText = course["Course Name"] || "Untitled Course";
+                    document.getElementById('details').innerHTML = course["Full Details"] || "No details provided.";
                     window.currentCourse = course["Course Name"];
 
                     const priceEl = document.getElementById('course-price');
@@ -171,14 +171,15 @@
                         priceEl.style.display = "block";
                     }
 
-                    // Testimonial Logic
+                    // 3. Testimonials (Safe Check)
+                    const testimonialList = data.testimonials || [];
                     const courseTestimonials = testimonialList.filter(t => String(t['Course ID']) === String(id));
                     const slider = document.getElementById('testimonial-slider');
                     const testimonialBlock = document.getElementById('testimonial-block');
 
                     if (courseTestimonials.length > 0) {
                         testimonialBlock.style.display = 'block';
-                        slider.innerHTML = ""; // Clear existing
+                        slider.innerHTML = ""; 
                         courseTestimonials.forEach(t => {
                             let mediaHTML = t.Type && t.Type.toLowerCase().trim() === 'video' 
                                 ? `<iframe src="${t.Media}" allowfullscreen></iframe>` 
@@ -192,12 +193,14 @@
                         });
                     }
                 } else {
+                    // Graceful exit if ID doesn't exist
                     document.getElementById('title').innerText = "Course Not Found";
+                    document.getElementById('details').innerHTML = "<p>The course ID " + id + " does not exist in the database.</p>";
                 }
             })
             .catch(err => {
-                console.error("Fetch Error:", err);
-                document.getElementById('title').innerText = "Error Loading Content";
+                console.error("Critical Error:", err);
+                document.getElementById('title').innerText = "Connection Error";
             });
 
         function addToCart() { /* ... unchanged ... */ }
