@@ -41,46 +41,30 @@
         .modal-icon { font-size: 3.5rem; margin-bottom: 15px; }
         .modal-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    /* --- MOBILE RESPONSIVENESS FIX --- */
+        
+        /* --- MOBILE RESPONSIVENESS FIX --- */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 5%;
-                text-align: center;
-            }
-            .logo-container {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .logo-container img {
-                height: 60px;
-                width: 60px;
-            }
-            .logo-title {
-                font-size: 1.5rem;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-                width: 100%;
-            }
-            .nav-links a {
-                margin: 5px;
-                font-size: 0.95rem;
-            }
-            .btn {
-                padding: 8px 16px;
-                font-size: 0.95rem !important;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .cart-header h1 {
-                font-size: 2rem;
-            }
+            nav { flex-direction: column; gap: 15px; padding: 15px 5%; text-align: center; }
+            .logo-container { flex-direction: column; gap: 5px; }
+            .logo-container img { height: 60px; width: 60px; }
+            .logo-title { font-size: 1.5rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+            .nav-links a { margin: 5px; font-size: 0.95rem; }
+            .btn { padding: 8px 16px; font-size: 0.95rem !important; }
+            .hero h1 { font-size: 2rem; }
+            .cart-header h1 { font-size: 2rem; }
         }
+
+        /* --- NEW: TESTIMONIAL SLIDER STYLES --- */
+        .testimonial-section { background-color: #f8fafc; border-radius: 16px; border: 1px solid #e2e8f0; padding: 30px; }
+        .testimonial-section h2 { color: var(--primary-dark); margin-bottom: 20px; text-align: center; }
+        .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 15px; scrollbar-width: none; }
+        .slider-container::-webkit-scrollbar { display: none; }
+        .testimonial-card { flex: 0 0 320px; scroll-snap-align: start; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; flex-direction: column; }
+        .testimonial-media { width: 100%; height: 200px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; background-color: #0f172a; }
+        .testimonial-media iframe, .testimonial-media img { width: 100%; height: 100%; object-fit: cover; border: none; }
+        .testimonial-text { font-style: italic; color: #475569; flex-grow: 1; margin-bottom: 15px; font-size: 0.95rem; }
+        .testimonial-author { font-weight: bold; color: var(--accent-blue); display: flex; align-items: center; gap: 10px; }
     </style>
 </head>
 <body>
@@ -111,6 +95,14 @@
         <div id="details" style="margin: 30px 0; font-size: 1.1rem;"></div>
         
         <button class="btn btn-primary" onclick="addToCart()" style="font-size: 1.1rem; padding: 12px 30px; width: 100%; max-width: 300px; margin-top: 20px;">Book Demo Session</button>
+    </div>
+
+    <div id="testimonial-block" style="display: none; max-width: 900px; margin: 0 auto 60px auto; padding: 0 10%;">
+        <div class="testimonial-section">
+            <h2>🗣️ What Our Students Say</h2>
+            <div class="slider-container" id="testimonial-slider">
+                </div>
+        </div>
     </div>
 
     <div class="modal-overlay" id="cartModal">
@@ -161,7 +153,8 @@
         fetch("https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec")
             .then(res => res.json()).then(data => {
             
-            const course = data.find(c => String(c['Course ID']) === String(id));
+            // UPDATED: Fetches from data.courses because of the new Apps Script format
+            const course = data.courses.find(c => String(c['Course ID']) === String(id));
             
             if(course) {
                 document.getElementById('title').innerText = course["Course Name"];
@@ -174,13 +167,52 @@
                     priceEl.style.display = "block";
                 }
 
+                // --- NEW: TESTIMONIAL INJECTION LOGIC ---
+                // Grabs only the testimonials from the 2nd sheet that match this Course ID
+                const courseTestimonials = data.testimonials.filter(t => String(t['Course ID']) === String(id));
+                const slider = document.getElementById('testimonial-slider');
+                const testimonialBlock = document.getElementById('testimonial-block');
+
+                if (courseTestimonials && courseTestimonials.length > 0) {
+                    testimonialBlock.style.display = 'block'; // Unhides the section
+                    
+                    courseTestimonials.forEach(t => {
+                        let mediaHTML = '';
+                        
+                        if (t.Type && t.Type.toLowerCase().trim() === 'video') {
+                            mediaHTML = `<iframe src="${t.Media}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                        } else {
+                            mediaHTML = `<img src="${t.Media}" alt="Student Photo">`;
+                        }
+
+                        // Checks if Profile Pic exists, otherwise uses a graduation cap emoji
+                        let profilePicHTML = t['Profile Pic'] && t['Profile Pic'].trim() !== "" 
+                            ? `<img src="${t['Profile Pic']}" style="width:30px; height:30px; border-radius:50%; object-fit:cover;">` 
+                            : '🎓';
+
+                        slider.innerHTML += `
+                            <div class="testimonial-card">
+                                <div class="testimonial-media">
+                                    ${mediaHTML}
+                                </div>
+                                <div class="testimonial-text">
+                                    "${t.Feedback}"
+                                </div>
+                                <div class="testimonial-author">
+                                    ${profilePicHTML} ${t.Name}
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
             } else {
                 document.getElementById('title').innerText = "Course Not Found";
                 document.getElementById('details').innerHTML = "<p>Please click a course from the home page.</p>";
             }
         });
 
-        // Add to Cart with Custom Pop-Up Logic
+        // Add to Cart with Custom Pop-Up Logic (Unchanged)
         function addToCart() {
             if(!window.currentCourse) return;
             
@@ -201,7 +233,6 @@
                 modalMsg.innerText = "Your course has been added. Kindly proceed to the cart to submit your details and book your session.";
             }
             
-            // Show the custom modal
             document.getElementById('cartModal').style.display = 'flex';
         }
 
