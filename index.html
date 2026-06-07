@@ -85,8 +85,10 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
             margin-top: 20px;
+            max-width: 1200px; /* <--- ADD THIS LINE */
+            margin-left: auto; /* <--- CENTERS THE GRID */
+            margin-right: auto; /* <--- CENTERS THE GRID */
         }
-
         /* Responsive adjustments */
         @media (max-width: 1200px) { .course-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 768px) { .course-grid { grid-template-columns: repeat(2, 1fr); } }
