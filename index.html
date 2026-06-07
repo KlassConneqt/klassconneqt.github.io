@@ -268,12 +268,21 @@
             const container = document.getElementById('course-container');
             container.innerHTML = '';
             const paginated = allCourses.slice((currentPage - 1) * coursesPerPage, currentPage * coursesPerPage);
+            
             paginated.forEach(c => {
+                // Check if Image URL exists in the sheet, otherwise use a sleek fallback block
+                let imageStr = (c["Image URL"] && c["Image URL"].trim() !== "") 
+                    ? `<img src="${c['Image URL']}" class="card-img" alt="Course Image">` 
+                    : `<div class="card-img" style="background: var(--secondary-dark); display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem; font-weight:bold;">KlassConneqt</div>`;
+
                 container.innerHTML += `
                     <div class="course-card">
-                        <h3>${c["Course Name"]}</h3>
-                        <p>${c["Description / Syllabus"].substring(0, 100)}...</p>
-                        <a href="course-details.html?id=${c['Course ID']}" class="btn btn-outline" style="width: 100%; margin-top:20px;">View Details & Enquire</a>
+                        ${imageStr}
+                        <div class="card-content">
+                            <h3 style="color: var(--primary-dark); margin-bottom: 10px;">${c["Course Name"]}</h3>
+                            <p style="color: #64748b; margin-bottom: 20px; flex-grow: 1;">${c["Description / Syllabus"].substring(0, 100)}...</p>
+                            <a href="course-details.html?id=${c['Course ID']}" class="btn btn-outline" style="width: 100%; text-align: center;">View Details & Enquire</a>
+                        </div>
                     </div>
                 `;
             });
