@@ -70,13 +70,13 @@
         
         <div id="details" style="margin: 30px 0; font-size: 1.1rem;"></div>
         
-        <button class="btn btn-primary" onclick="addToCart()" style="font-size: 1.1rem; padding: 12px 30px; width: 100%; max-width: 300px; margin-top: 20px;">Add to Demo Cart</button>
+        <button class="btn btn-primary" onclick="addToCart()" style="font-size: 1.1rem; padding: 12px 30px; width: 100%; max-width: 300px; margin-top: 20px;">Book Demo Session</button>
     </div>
 
     <div class="modal-overlay" id="cartModal">
         <div class="modal-box">
             <div class="modal-icon" id="modal-icon">✅</div>
-            <h2 id="modal-title" style="color: var(--primary-dark); margin-bottom: 10px;">Added to Demo Cart!</h2>
+            <h2 id="modal-title" style="color: var(--primary-dark); margin-bottom: 10px;">Demo Session Selected!</h2>
             <p id="modal-msg" style="color: #64748b; margin-bottom: 10px; line-height: 1.5;">Your course has been added. Kindly proceed to the cart to submit your details and book your session.</p>
             <div class="modal-buttons">
                 <button onclick="closeModal()" class="btn btn-outline" style="flex: 1; padding: 12px;">Continue Browsing</button>
@@ -151,13 +151,13 @@
 
             if(cart.includes(window.currentCourse)) { 
                 modalIcon.innerText = "⚠️";
-                modalTitle.innerText = "Already Added!";
+                modalTitle.innerText = "Session Already Selected!";
                 modalMsg.innerText = "This course is already in your demo cart. Please proceed to the cart to submit your enquiry.";
             } else { 
                 cart.push(window.currentCourse); 
                 localStorage.setItem('cart', JSON.stringify(cart)); 
                 modalIcon.innerText = "✅";
-                modalTitle.innerText = "Added to Demo Cart!";
+                modalTitle.innerText = "Demo Session Selected!";
                 modalMsg.innerText = "Your course has been added. Kindly proceed to the cart to submit your details and book your session.";
             }
             
