@@ -74,6 +74,46 @@
         .footer-col ul li { margin-bottom: 12px; color: #cbd5e1; transition: color 0.3s; }
         .footer-col ul li a:hover { color: var(--accent-blue); }
         .footer-bottom { border-top: 1px solid #334155; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 0.85rem; }
+    /* --- MOBILE RESPONSIVENESS FIX --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+                text-align: center;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .logo-container img {
+                height: 60px;
+                width: 60px;
+            }
+            .logo-title {
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+            }
+            .nav-links a {
+                margin: 5px;
+                font-size: 0.95rem;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.95rem !important;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .cart-header h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
