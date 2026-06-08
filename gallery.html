@@ -145,8 +145,12 @@
             .then(data => {
                 document.getElementById('gallery-container').innerHTML = data.map(i => `
                     <div class="gallery-item">
-                        <img src="${i.ImageURL}" alt="${i.Caption}">
-                        <p style="text-align:center; margin-top:10px; font-weight:bold;">${i.Caption}</p>
+                        ${
+                            i.Type && i.Type.toLowerCase() === "video"
+                            ? `<iframe width="100%" height="250" src="${i.ImageURL}" frameborder="0" allowfullscreen style="border-radius: 4px; background: #0f172a;"></iframe>`
+                            : `<img src="${i.ImageURL}" alt="${i.Caption}">`
+                        }
+                        <p style="text-align:center; margin-top:10px; font-weight:bold; color: var(--primary-dark);">${i.Caption}</p>
                     </div>
                 `).join('');
             });
