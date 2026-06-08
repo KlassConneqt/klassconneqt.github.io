@@ -18,7 +18,7 @@
         
         /* LOGO STYLING */
         .logo-container { display: flex; align-items: center; gap: 15px; }
-        .logo-container img { height: 85px; width: 85px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .logo-container img { height: 85px; width: 85px; object-fit: contain; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
         .logo-text { display: flex; flex-direction: column; justify-content: center; }
         .logo-title { font-size: 1.8rem; font-weight: 800; color: var(--text-light); }
         .logo-tagline { font-size: 0.75rem; font-weight: 500; color: #94a3b8; margin-top: -5px; letter-spacing: 0.5px; }
@@ -38,9 +38,20 @@
 
         /* GALLERY SPECIFIC STYLING */
         .gallery-wrapper { padding: 80px 5%; min-height: 50vh; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .gallery-item { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .gallery-item img {
+        .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+.gallery-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}        .gallery-item img {
     width: 100%;
     height: auto;
     max-height: 700px;
@@ -153,7 +164,7 @@
                     <div class="gallery-item">
                         ${
                             i.Type && i.Type.toLowerCase() === "video"
-                            ? `<iframe width="100%" height="250" src="${i.ImageURL}" frameborder="0" allowfullscreen style="border-radius: 4px; background: #0f172a;"></iframe>`
+                            ? `<iframe width="100%" height="500" src="${i.ImageURL}" frameborder="0" allowfullscreen style="border-radius: 4px; background: #0f172a;"></iframe>`
                             : `<img src="${i.ImageURL}" alt="${i.Caption}">`
                         }
                         <p style="text-align:center; margin-top:10px; font-weight:bold; color: var(--primary-dark);">${i.Caption}</p>
