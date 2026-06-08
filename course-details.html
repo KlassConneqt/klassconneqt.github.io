@@ -81,6 +81,12 @@
                 font-size: 2rem;
             }
         }
+    /* --- TESTIMONIAL SLIDER CSS --- */
+        #testimonial-slider { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; scrollbar-width: none; }
+        #testimonial-slider::-webkit-scrollbar { display: none; }
+        .testimonial-card { min-width: 350px; max-width: 350px; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,.08); scroll-snap-align: start; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #e2e8f0; }
+        .testimonial-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .student-pic { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-blue); }
     </style>
 </head>
 <body>
