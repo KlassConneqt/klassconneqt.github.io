@@ -195,23 +195,33 @@
         // REPLACE THIS URL WITH YOUR NEW TESTIMONIAL API SCRIPT LINK:
         const TESTIMONIAL_API = "https://script.google.com/macros/s/AKfycbxox6GbDy76OuNs36OcnxohTjLTgpfQrkdLWI9GVgr3AEoOpGPcwTxu_2Lmkw83KHBg/exec"; 
 
+        // Show the title and loading text right away
+        document.getElementById("testimonial-title").style.display = "block";
+        document.getElementById("testimonial-loader").style.display = "block";
+
         fetch(TESTIMONIAL_API)
         .then(res => res.json())
         .then(testimonials => {
+            // Hide the loader once the data arrives!
+            document.getElementById("testimonial-loader").style.display = "none";
+            
             const filtered = testimonials.filter(t => String(t["Course ID"]) === String(id));
             renderTestimonials(filtered);
         })
-        .catch(err => console.log("Testimonials not loaded yet."));
+        .catch(err => {
+            document.getElementById("testimonial-loader").innerText = "Unable to load reviews at this time.";
+        });
 
         function renderTestimonials(data){
             const container = document.getElementById("testimonial-slider");
-            const title = document.getElementById("testimonial-title");
+            const section = document.getElementById("testimonial-section");
 
             if(data.length === 0){
-                return; // Keeps the section hidden if no reviews exist
+                section.style.display = "none"; // Hide whole section if no reviews exist
+                return; 
             }
 
-            title.style.display = "block"; // Shows the title
+            container.style.display = "flex"; // Show the slider
 
             container.innerHTML = data.map(t => `
                 <div class="testimonial-card">
