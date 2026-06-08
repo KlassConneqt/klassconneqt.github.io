@@ -40,7 +40,13 @@
         .gallery-wrapper { padding: 80px 5%; min-height: 50vh; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .gallery-item { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .gallery-item img { width: 100%; height: 250px; object-fit: cover; border-radius: 4px; }
+        .gallery-item img {
+    width: 100%;
+    height: auto;
+    max-height: 700px;
+    object-fit: contain;
+    border-radius: 4px;
+}
     /* --- MOBILE RESPONSIVENESS FIX --- */
         @media (max-width: 768px) {
             nav {
