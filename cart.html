@@ -237,34 +237,51 @@
         </div>
     </footer>
 
-    <script>
-        // Function to load and render the cart items
-        function renderCart() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const cartList = document.getElementById('cart-list');
+<script>
 
-    if (cart.length === 0) {
+    // ==========================================
+    // RENDER CART
+    // ==========================================
+    function renderCart() {
 
-        cartList.innerHTML =
-            '<li style="border-left: 4px solid #ef4444; justify-content: center; color: #ef4444; background: #fef2f2;">Your demo cart is currently empty. Please select a course from the Home page.</li>';
+        const cart = JSON.parse(
+            localStorage.getItem('cart') || '[]'
+        );
 
-    } else {
+        const cartList = document.getElementById('cart-list');
 
-        cartList.innerHTML = cart.map((c, index) => {
+        if (cart.length === 0) {
 
-            // Support the new object format
-            // and also support any old string-format cart items
-            const courseName =
-                (typeof c === 'object' && c !== null)
-                    ? c.name
-                    : c;
+            cartList.innerHTML =
+                '<li style="border-left: 4px solid #ef4444; justify-content: center; color: #ef4444; background: #fef2f2;">Your demo cart is currently empty. Please select a course from the Home page.</li>';
+
+            return;
+        }
+
+        cartList.innerHTML = cart.map(function(c, index) {
+
+            // New cart format:
+            // { id: "C001", name: "Maths Mastery" }
+
+            // Old cart format:
+            // "Maths Mastery"
+
+            let courseName;
+
+            if (typeof c === 'object' && c !== null) {
+                courseName = c.name || 'Unnamed Course';
+            } else {
+                courseName = c;
+            }
 
             return `
                 <li>
                     <span>${courseName}</span>
-                    <button type="button"
-                            class="remove-btn"
-                            onclick="removeFromCart(${index})">
+
+                    <button
+                        type="button"
+                        class="remove-btn"
+                        onclick="removeFromCart(${index})">
                         Remove
                     </button>
                 </li>
@@ -272,71 +289,158 @@
 
         }).join('');
     }
-}
 
-        // Function to remove an item
-        function removeFromCart(index) {
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        }
 
-        // Initial render
+    // ==========================================
+    // REMOVE COURSE
+    // ==========================================
+    function removeFromCart(index) {
+
+        let cart = JSON.parse(
+            localStorage.getItem('cart') || '[]'
+        );
+
+        cart.splice(index, 1);
+
+        localStorage.setItem(
+            'cart',
+            JSON.stringify(cart)
+        );
+
         renderCart();
-
-        // Handle the email submission
-        // Handle the email submission
-        document.getElementById('enquiryForm').onsubmit = (e) => {
-            e.preventDefault();
-            
-            const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-if (currentCart.length === 0) {
-    alert("Please add a course to your cart before submitting an enquiry.");
-    return;
-}
-
-// Convert cart objects into course names
-const courseNames = currentCart.map(c => {
-    if (typeof c === 'object' && c !== null) {
-        return c.name;
     }
-    return c;
-}).join(', ');
 
-const submitBtn = document.getElementById('submitBtn');
 
-submitBtn.innerText = "Sending Details...";
-submitBtn.disabled = true;
+    // ==========================================
+    // LOAD CART WHEN PAGE OPENS
+    // ==========================================
+    renderCart();
 
-// Send enquiry through EmailJS
-emailjs.send("service_zn289y8", "template_g6ozwsm", {
-    course_name: courseNames,
-    name: document.getElementById('name').value,
-    email: document.getElementById('email').value,
-    phone: document.getElementById('phone').value,
-    message: document.getElementById('message').value
-}).then(() => { 
 
-    localStorage.removeItem('cart');
+    // ==========================================
+    // ENQUIRY FORM
+    // ==========================================
+    document.getElementById('enquiryForm').addEventListener(
+        'submit',
+        function(e) {
 
-    document.getElementById('successModal').style.display = 'flex'; 
+            e.preventDefault();
 
-}).catch((error) => {
+            const currentCart = JSON.parse(
+                localStorage.getItem('cart') || '[]'
+            );
 
-    alert("EmailJS Failed. Reason: " + (error.text || JSON.stringify(error)));
 
-    console.error("EmailJS Error details:", error);
+            // Check cart
+            if (currentCart.length === 0) {
 
-    submitBtn.innerText = "Secure My Demo Session";
-    submitBtn.disabled = false;
-});        
-        // Close Modal and Redirect
-        function closeModalAndRedirect() {
-            document.getElementById('successModal').style.display = 'none';
-            window.location.href = 'index.html';
+                alert(
+                    'Please add a course to your cart before submitting an enquiry.'
+                );
+
+                return;
+            }
+
+
+            // ==========================================
+            // GET COURSE NAMES
+            // ==========================================
+            const courseNames = currentCart.map(function(c) {
+
+                if (
+                    typeof c === 'object' &&
+                    c !== null
+                ) {
+                    return c.name || 'Unnamed Course';
+                }
+
+                return c;
+
+            }).join(', ');
+
+
+            // ==========================================
+            // DISABLE SUBMIT BUTTON
+            // ==========================================
+            const submitBtn =
+                document.getElementById('submitBtn');
+
+            submitBtn.innerText =
+                'Sending Details...';
+
+            submitBtn.disabled = true;
+
+
+            // ==========================================
+            // SEND EMAIL THROUGH EMAILJS
+            // ==========================================
+            emailjs.send(
+                'service_zn289y8',
+                'template_g6ozwsm',
+                {
+                    course_name: courseNames,
+
+                    name:
+                        document.getElementById('name').value,
+
+                    email:
+                        document.getElementById('email').value,
+
+                    phone:
+                        document.getElementById('phone').value,
+
+                    message:
+                        document.getElementById('message').value
+                }
+
+            ).then(function(response) {
+
+                console.log(
+                    'EmailJS SUCCESS:',
+                    response
+                );
+
+                // Remove ONLY the cart
+                localStorage.removeItem('cart');
+
+                // Show success popup
+                document.getElementById(
+                    'successModal'
+                ).style.display = 'flex';
+
+            }).catch(function(error) {
+
+                console.error(
+                    'EmailJS Error:',
+                    error
+                );
+
+                alert(
+                    'EmailJS Failed. Reason: ' +
+                    (error.text || JSON.stringify(error))
+                );
+
+                submitBtn.innerText =
+                    'Secure My Demo Session';
+
+                submitBtn.disabled = false;
+            });
         }
-    </script>
+    );
+
+
+    // ==========================================
+    // CLOSE SUCCESS MODAL
+    // ==========================================
+    function closeModalAndRedirect() {
+
+        document.getElementById(
+            'successModal'
+        ).style.display = 'none';
+
+        window.location.href = 'index.html';
+    }
+
+</script>
 </body>
 </html>
