@@ -180,27 +180,89 @@
         const id = new URLSearchParams(window.location.search).get('id');
         
         fetch("https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec")
-            .then(res => res.json()).then(data => {
-            
-            const course = data.find(c => String(c['Course ID']) === String(id));
-            
-            if(course) {
-                document.getElementById('title').innerText = course["Course Name"];
-                document.getElementById('details').innerHTML = course["Full Details"]; 
-                window.currentCourse = course["Course Name"];
+    .then(res => res.json())
+    .then(data => {
 
-                const priceEl = document.getElementById('course-price');
-                if (course["Price"] && course["Price"].toString().trim() !== "") {
-                    priceEl.innerText = "Fee: " + course["Price"];
-                    priceEl.style.display = "block";
-                }
+        // Find the course using the permanent Course ID
+        const course = data.find(c =>
+            String(c["Course ID"]).trim() === String(id).trim()
+        );
 
-            } else {
-                document.getElementById('title').innerText = "Course Not Found";
-                document.getElementById('details').innerHTML = "<p>Please click a course from the home page.</p>";
+        if (course) {
+
+            // Check Published status
+            const published = String(course["Published"] || "")
+                .trim()
+                .toLowerCase();
+
+            // Stop if course is unpublished
+            if (
+                published !== "yes" &&
+                published !== "true" &&
+                published !== "published"
+            ) {
+
+                document.getElementById("title").innerText =
+                    "Course Not Available";
+
+                document.getElementById("details").innerHTML =
+                    "<p>This course is currently unavailable.</p>";
+
+                document.querySelector(
+                    'button[onclick="addToCart()"]'
+                ).style.display = "none";
+
+                return;
             }
-        });
 
+            // Load course details
+            document.getElementById("title").innerText =
+                course["Course Name"] || "";
+
+            document.getElementById("details").innerHTML =
+                course["Full Details"] || "";
+
+            // Store Course ID + Course Name
+            window.currentCourse = {
+                id: course["Course ID"],
+                name: course["Course Name"]
+            };
+
+            // Load price
+            const priceEl = document.getElementById("course-price");
+
+            if (
+                course["Price"] &&
+                course["Price"].toString().trim() !== ""
+            ) {
+                priceEl.innerText = "Fee: " + course["Price"];
+                priceEl.style.display = "block";
+            }
+
+        } else {
+
+            document.getElementById("title").innerText =
+                "Course Not Found";
+
+            document.getElementById("details").innerHTML =
+                "<p>Please click a course from the home page.</p>";
+
+            document.querySelector(
+                'button[onclick="addToCart()"]'
+            ).style.display = "none";
+        }
+
+    })
+    .catch(err => {
+
+        console.error("Course loading error:", err);
+
+        document.getElementById("title").innerText =
+            "Unable to Load Course";
+
+        document.getElementById("details").innerHTML =
+            "<p>Unable to load course details. Please try again later.</p>";
+    });
         // --- INDEPENDENT TESTIMONIAL LOGIC ---
         // REPLACE THIS URL WITH YOUR NEW TESTIMONIAL API SCRIPT LINK:
         const TESTIMONIAL_API = "https://script.google.com/macros/s/AKfycbxox6GbDy76OuNs36OcnxohTjLTgpfQrkdLWI9GVgr3AEoOpGPcwTxu_2Lmkw83KHBg/exec"; 
