@@ -313,30 +313,89 @@
             `).join('');
         }
         // Add to Cart with Custom Pop-Up Logic
-        function addToCart() {
-            if(!window.currentCourse) return;
-            
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const modalIcon = document.getElementById('modal-icon');
-            const modalTitle = document.getElementById('modal-title');
-            const modalMsg = document.getElementById('modal-msg');
+function addToCart() {
 
-            if(cart.includes(window.currentCourse)) { 
-                modalIcon.innerText = "⚠️";
-                modalTitle.innerText = "Session Already Selected!";
-                modalMsg.innerText = "This course is already in your demo cart. Please proceed to the cart to submit your enquiry.";
-            } else { 
-                cart.push(window.currentCourse); 
-                localStorage.setItem('cart', JSON.stringify(cart)); 
-                modalIcon.innerText = "✅";
-                modalTitle.innerText = "Demo Session Selected!";
-                modalMsg.innerText = "Your course has been added. Kindly proceed to the cart to submit your details and book your session.";
-            }
-            
-            // Show the custom modal
-            document.getElementById('cartModal').style.display = 'flex';
+    if (!window.currentCourse) return;
+
+    let cart = JSON.parse(
+        localStorage.getItem('cart') || '[]'
+    );
+
+    const modalIcon =
+        document.getElementById('modal-icon');
+
+    const modalTitle =
+        document.getElementById('modal-title');
+
+    const modalMsg =
+        document.getElementById('modal-msg');
+
+
+    // Check if this Course ID is already in the cart
+    const alreadyAdded = cart.some(function(item) {
+
+        // New cart format:
+        // { id: "C001", name: "CCNA Certification" }
+
+        if (
+            typeof item === 'object' &&
+            item !== null
+        ) {
+            return String(item.id).trim() ===
+                   String(window.currentCourse.id).trim();
         }
 
+        // Support old cart entries that may only contain
+        // the course name
+        return String(item).trim() ===
+               String(window.currentCourse.name).trim();
+
+    });
+
+
+    // Course already exists
+    if (alreadyAdded) {
+
+        modalIcon.innerText = "⚠️";
+
+        modalTitle.innerText =
+            "Session Already Selected!";
+
+        modalMsg.innerText =
+            "This course is already in your demo cart. Please proceed to the cart to submit your enquiry.";
+
+    }
+
+
+    // Course does not exist — add it
+    else {
+
+        cart.push({
+            id: window.currentCourse.id,
+            name: window.currentCourse.name
+        });
+
+        localStorage.setItem(
+            'cart',
+            JSON.stringify(cart)
+        );
+
+        modalIcon.innerText = "✅";
+
+        modalTitle.innerText =
+            "Demo Session Selected!";
+
+        modalMsg.innerText =
+            "Your course has been added. Kindly proceed to the cart to submit your details and book your session.";
+
+    }
+
+
+    // Show the custom modal
+    document.getElementById(
+        'cartModal'
+    ).style.display = 'flex';
+}
         // Close the modal
         function closeModal() {
             document.getElementById('cartModal').style.display = 'none';
