@@ -603,10 +603,21 @@ async function loadHomeTestimonials() {
 
         const testimonials = await response.json();
 
-        loader.style.display = "none";
+loader.style.display = "none";
 
-        /* Show ALL testimonials */
-        renderHomeTestimonials(testimonials);
+
+/*
+ * Show only testimonials where Publish = Yes
+ *
+ * Anything other than "Yes" will remain hidden.
+ */
+const publishedTestimonials = testimonials.filter(t =>
+    String(t["Publish"] || "").trim().toLowerCase() === "yes"
+);
+
+
+/* Show only published testimonials */
+renderHomeTestimonials(publishedTestimonials);
 
     } catch (error) {
 
@@ -756,9 +767,9 @@ function renderHomeTestimonials(data) {
 /* PAGE LOAD                                                 */
 /* ========================================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
-    loadCourses();
+    await loadCourses();
 
     loadHomeTestimonials();
 
