@@ -151,13 +151,22 @@
     font-size: 1rem;
 }
 
+/* ========================================================= */
+/* HOME TESTIMONIAL SLIDER                                   */
+/* ========================================================= */
+
+.feedback-slider-wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .feedback-slider {
     display: flex;
     gap: 25px;
-    overflow-x: hidden;
+    overflow: hidden;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding: 20px 5px 30px 5px;
+    padding: 20px 55px 30px 55px;
     scrollbar-width: none;
 }
 
@@ -175,6 +184,58 @@
     overflow: hidden;
     scroll-snap-align: start;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* SLIDER ARROWS */
+
+.feedback-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: #0f172a;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.18);
+    transition: all 0.25s ease;
+}
+
+.feedback-arrow:hover {
+    background: #0ea5e9;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.feedback-arrow-left {
+    left: 0;
+}
+
+.feedback-arrow-right {
+    right: 0;
+}
+
+/* PROFILE IMAGE CLICK / ZOOM */
+
+.feedback-profile {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-blue);
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+}
+
+.feedback-profile:hover {
+    transform: scale(1.08);
 }
 
 .feedback-card:hover {
@@ -201,13 +262,6 @@
     margin-bottom: 15px;
 }
 
-.feedback-profile {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--accent-blue);
-}
 
 .feedback-name {
     margin: 0;
@@ -430,8 +484,28 @@ footer {
             Loading student feedback... ⏳
         </div>
 
-        <div id="home-feedback-slider" class="feedback-slider" style="display: none;">
-        </div>
+        <div class="feedback-slider-wrapper">
+
+    <button
+        class="feedback-arrow feedback-arrow-left"
+        onclick="moveHomeTestimonials(-1)"
+        aria-label="Previous testimonial">
+        ‹
+    </button>
+
+    <div id="home-feedback-slider"
+         class="feedback-slider"
+         style="display: none;">
+    </div>
+
+    <button
+        class="feedback-arrow feedback-arrow-right"
+        onclick="moveHomeTestimonials(1)"
+        aria-label="Next testimonial">
+        ›
+    </button>
+
+</div>
 
     </div>
 
@@ -479,7 +553,64 @@ footer {
             <p>&copy; 2026 KlassConneqt. All Rights Reserved.</p>
         </div>
     </footer>
-    <script>
+
+
+<!-- ========================================================= -->
+<!-- STUDENT IMAGE ZOOM MODAL                                 -->
+<!-- ========================================================= -->
+
+<div id="imageZoomModal"
+     onclick="closeImageZoom()"
+     style="
+        display:none;
+        position:fixed;
+        inset:0;
+        background:rgba(15,23,42,0.88);
+        z-index:9999;
+        align-items:center;
+        justify-content:center;
+        padding:30px;
+        cursor:zoom-out;
+     ">
+
+    <img id="zoomedStudentImage"
+         src=""
+         alt="Student"
+         onclick="event.stopPropagation()"
+         style="
+            max-width:90vw;
+            max-height:90vh;
+            width:auto;
+            height:auto;
+            object-fit:contain;
+            border-radius:12px;
+            box-shadow:0 15px 50px rgba(0,0,0,0.5);
+            cursor:default;
+         ">
+
+    <button
+        onclick="closeImageZoom()"
+        style="
+            position:absolute;
+            top:20px;
+            right:25px;
+            width:45px;
+            height:45px;
+            border:none;
+            border-radius:50%;
+            background:white;
+            color:#0f172a;
+            font-size:28px;
+            cursor:pointer;
+            font-weight:bold;
+         ">
+        ×
+    </button>
+
+</div>
+
+
+<script>
         const API_URL = "https://script.google.com/macros/s/AKfycbzBd1StZ9jupKta-Wxrc-_kyDNwh9Tb6ybcdOQJqlSbVRuVuXv5--1-OyoqHfINJUCb/exec";
         let allCourses = [];
         let filteredCourses = []; 
@@ -716,9 +847,10 @@ function renderHomeTestimonials(data) {
                             t["Profile Pic"]
                             ? `
                                 <img
-                                    src="${t["Profile Pic"]}"
-                                    class="feedback-profile"
-                                    alt="${t.Name || "Student"}">
+    src="${t["Profile Pic"]}"
+    class="feedback-profile"
+    alt="${t.Name || "Student"}"
+    onclick="openImageZoom(this.src)">
                               `
                             : `
                                 <div
@@ -767,6 +899,59 @@ function renderHomeTestimonials(data) {
 
 }
 
+/* ========================================================= */
+/* HOME TESTIMONIAL MANUAL SLIDER                            */
+/* ========================================================= */
+
+function moveHomeTestimonials(direction) {
+
+    const slider = document.getElementById("home-feedback-slider");
+
+    if (!slider) return;
+
+    const card = slider.querySelector(".feedback-card");
+
+    if (!card) return;
+
+    const cardWidth = card.offsetWidth + 25;
+
+    slider.scrollBy({
+        left: direction * cardWidth,
+        behavior: "smooth"
+    });
+}
+
+
+/* ========================================================= */
+/* HOME STUDENT IMAGE ZOOM                                   */
+/* ========================================================= */
+
+function openImageZoom(imageUrl) {
+
+    const modal = document.getElementById("imageZoomModal");
+    const image = document.getElementById("zoomedStudentImage");
+
+    if (!modal || !image) return;
+
+    image.src = imageUrl;
+    modal.style.display = "flex";
+}
+
+
+function closeImageZoom() {
+
+    const modal = document.getElementById("imageZoomModal");
+    const image = document.getElementById("zoomedStudentImage");
+
+    if (!modal) return;
+
+    modal.style.display = "none";
+
+    if (image) {
+        image.src = "";
+    }
+}
+
 
 /* ========================================================= */
 /* PAGE LOAD                                                 */
@@ -778,7 +963,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     loadHomeTestimonials();
 
-});
-    </script>
+});    </script>
 </body>
 </html>
