@@ -272,18 +272,44 @@
         document.getElementById("testimonial-loader").style.display = "block";
 
         fetch(TESTIMONIAL_API)
-        .then(res => res.json())
-        .then(testimonials => {
-            // Hide the loader once the data arrives!
-            document.getElementById("testimonial-loader").style.display = "none";
-            
-            const filtered = testimonials.filter(t => String(t["Course ID"]) === String(id));
-            renderTestimonials(filtered);
-        })
-        .catch(err => {
-            document.getElementById("testimonial-loader").innerText = "Unable to load reviews at this time.";
+    .then(res => res.json())
+    .then(testimonials => {
+
+        // Hide the loader once the data arrives
+        document.getElementById("testimonial-loader").style.display = "none";
+
+        /*
+         * Show testimonial ONLY when:
+         *
+         * 1. Course ID matches the current course
+         * 2. Publish = Yes
+         */
+
+        const filtered = testimonials.filter(t => {
+
+            const testimonialCourseId =
+                String(t["Course ID"] || "").trim();
+
+            const publishStatus =
+                String(t["Publish"] || "").trim().toLowerCase();
+
+            return (
+                testimonialCourseId === String(id).trim() &&
+                publishStatus === "yes"
+            );
+
         });
 
+        renderTestimonials(filtered);
+    })
+    .catch(err => {
+
+        console.error("Testimonial loading error:", err);
+
+        document.getElementById("testimonial-loader").innerText =
+            "Unable to load reviews at this time.";
+
+    });
         function renderTestimonials(data){
             const container = document.getElementById("testimonial-slider");
             const section = document.getElementById("testimonial-section");
