@@ -154,7 +154,8 @@
 .feedback-slider {
     display: flex;
     gap: 25px;
-    overflow-x: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     padding: 20px 5px 30px 5px;
     scrollbar-width: none;
@@ -741,9 +742,13 @@ function renderHomeTestimonials(data) {
                             </h4>
 
                             <p class="feedback-course">
-                                ${t["Course Name"] || t["Course ID"] || "KlassConneqt Student"}
-                            </p>
-
+    ${
+        allCourses.find(c =>
+            String(c["Course ID"]).trim() ===
+            String(t["Course ID"]).trim()
+        )?.["Course Name"] || "KlassConneqt Student"
+    }
+</p>
                         </div>
 
                     </div>
